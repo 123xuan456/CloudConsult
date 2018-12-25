@@ -18,6 +18,7 @@ ext {
                    rxlifecycleSdkVersion   : "1.0",
                    rxlifecycle2SdkVersion  : "2.2.1",
                    espressoSdkVersion      : "3.0.1",
+                   smartrefreshVersion     : "1.1.0-alpha-14",
                    canarySdkVersion        : "1.5.4"
         ]
 
@@ -52,6 +53,10 @@ ext {
                 "nineoldandroids"          : "com.nineoldandroids:library:2.4.0",
                 "paginate"                 : "com.github.markomilos:paginate:0.5.1",
                 "vlayout"                  : "com.alibaba.android:vlayout:1.1.0@aar",
+                "smartrefresh-layout"      : "com.scwang.smartrefresh:SmartRefreshLayout:${version["smartrefreshVersion"]}",
+                "smartrefresh-header"      : "com.scwang.smartrefresh:SmartRefreshHeader:${version["smartrefreshVersion"]}",
+                "baserecyclerviewadapter"  : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30",
+
 
                 //rx1
                 "rxandroid"                : "io.reactivex:rxandroid:1.2.1",
@@ -88,7 +93,7 @@ ext {
                 "arouter"                  : "com.alibaba:arouter-api:1.3.1",
                 "arouter-compiler"         : "com.alibaba:arouter-compiler:1.1.4",
                 "progressmanager"          : "me.jessyan:progressmanager:1.5.0",
-                "retrofit-url-manager"     : "me.jessyan:retrofit-url-manager:1.2.5",
+                "retrofit-url-manager"     : "me.jessyan:retrofit-url-manager:1.4.0",
                 "lifecyclemodel"           : "me.jessyan:lifecyclemodel:1.0.1",
 
                 //test
