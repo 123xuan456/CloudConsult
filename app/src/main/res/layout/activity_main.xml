@@ -5,7 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".mvp.ui.activity.MainActivity" >
 
         <include
             android:id="@+id/include"
@@ -23,6 +23,5 @@
             android:background="@color/color_page_bg"
             />
 
-        <!--app:headerLayout="@layout/nav_header_main"-->
         <!--app:menu="@menu/activity_main_drawer"-->
     </android.support.v4.widget.DrawerLayout>

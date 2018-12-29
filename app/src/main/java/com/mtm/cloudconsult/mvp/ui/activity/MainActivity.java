@@ -5,23 +5,33 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.mtm.cloudconsult.R;
+import com.mtm.cloudconsult.app.adapter.MyFragmentPagerAdapter;
 import com.mtm.cloudconsult.di.component.DaggerMainComponent;
 import com.mtm.cloudconsult.di.module.MainModule;
 import com.mtm.cloudconsult.mvp.contract.MainContract;
 import com.mtm.cloudconsult.mvp.presenter.MainPresenter;
+import com.mtm.cloudconsult.mvp.ui.fragment.OneFragment;
+import com.mtm.cloudconsult.mvp.ui.fragment.ThreeFragment;
+import com.mtm.cloudconsult.mvp.ui.fragment.TwoFragment;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +40,7 @@ import butterknife.OnClick;
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View , ViewPager.OnPageChangeListener {
 
 
     @BindView(R.id.iv_title_menu)
@@ -69,9 +79,57 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        initContentFragment();
     }
+    private void initContentFragment() {
+        ArrayList<Fragment> mFragmentList = new ArrayList<>();
+        mFragmentList.add(new OneFragment());
+        mFragmentList.add(new TwoFragment());
+        mFragmentList.add(new ThreeFragment());
+        // 注意使用的是：getSupportFragmentManager
+        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragmentList);
+        vpContent.setAdapter(adapter);
+        // 设置ViewPager最大缓存的页面个数(cpu消耗少)
+        vpContent.setOffscreenPageLimit(2);
+        vpContent.addOnPageChangeListener(this);
 
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            //去除默认Title显示
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
+        //默认显示第二页
+        setCurrentItem(1);
+    }
+    /**
+     * 切换页面
+     *
+     * @param position 分类角标
+     */
+    private void setCurrentItem(int position) {
+        boolean isOne = false;
+        boolean isTwo = false;
+        boolean isThree = false;
+        switch (position) {
+            case 0:
+                isOne = true;
+                break;
+            case 1:
+                isTwo = true;
+                break;
+            case 2:
+                isThree = true;
+                break;
+            default:
+                isTwo = true;
+                break;
+        }
+        vpContent.setCurrentItem(position);
+        ivTitleOne.setSelected(isOne);
+        ivTitleTwo.setSelected(isTwo);
+        ivTitleThree.setSelected(isThree);
+    }
     @Override
     public void showLoading() {
 
@@ -116,6 +174,21 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         ButterKnife.bind(this);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                Toast.makeText(this, "搜索", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     @OnClick({R.id.ll_title_menu, R.id.iv_title_one, R.id.iv_title_two, R.id.iv_title_three})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -127,13 +200,50 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     drawerLayout.openDrawer(GravityCompat.START);
                 }
                 break;
-            case R.id.iv_title_one:
-                break;
             case R.id.iv_title_two:
+                // 不然cpu会有损耗
+                if (vpContent.getCurrentItem() != 1) {
+                    setCurrentItem(1);
+                }
+                break;
+            case R.id.iv_title_one:
+                if (vpContent.getCurrentItem() != 0) {
+                    setCurrentItem(0);
+                }
                 break;
             case R.id.iv_title_three:
+                if (vpContent.getCurrentItem() != 2) {
+                    setCurrentItem(2);
+                }
+                break;
+                default:
+        }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        switch (position) {
+            case 0:
+                setCurrentItem(0);
+                break;
+            case 1:
+                setCurrentItem(1);
+                break;
+            case 2:
+                setCurrentItem(2);
+                break;
+            default:
                 break;
         }
     }
 
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
 }

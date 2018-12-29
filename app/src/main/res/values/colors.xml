@@ -2,11 +2,12 @@
 <resources>
     <color name="colorPrimary">#ffce3d3a</color>
     <color name="colorPrimaryDark">#ffce3d3a</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ffce3d3a</color>
 
     <color name="colorTheme">#ffce3d3a</color>
     <!--页面背景的颜色-->
     <color name="color_page_bg">#F1F3F4</color>
+    <color name="color_bg">#FAFAFA</color>
 
     <color name="colorWhite">#ffffffff</color>
 
@@ -16,6 +17,7 @@
     <color name="colorTabTextCheck">#ffce3d3a</color>
     <color name="colorTabTextNormal">#585858</color>
     <color name="colorTabLine">#ffce3d3a</color>
+    <color name="colorTabTextNoCheck">#BBBBBB</color>
 
     <!--侧边栏分割线-->
     <color name="colorNavLine">#E0E0E0</color>
@@ -70,4 +72,7 @@
     <color name="text_deed_bg">#f6f6f6</color>
     <!--dialog的查看详情键-->
     <color name="colorBtDialog">#38659C</color>
+
+
+    <color name="theme_color_common_section">#ffe6e8e9</color>
 </resources>

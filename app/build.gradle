@@ -50,6 +50,7 @@ dependencies {
     }
     //tools
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:support-v4:27.1.1'
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     implementation rootProject.ext.dependencies["progressmanager"]
     implementation rootProject.ext.dependencies["appcompat-v7"]
@@ -63,6 +64,7 @@ dependencies {
         exclude module: 'support-annotations'
     }
     implementation rootProject.ext.dependencies["paginate"]
+    implementation rootProject.ext.dependencies["circleimageview"]
     implementation rootProject.ext.dependencies["smartrefresh-layout"]
     implementation rootProject.ext.dependencies["smartrefresh-header"]
     implementation rootProject.ext.dependencies["baserecyclerviewadapter"]
