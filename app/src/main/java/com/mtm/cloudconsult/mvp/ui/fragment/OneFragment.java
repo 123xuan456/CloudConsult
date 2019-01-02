@@ -5,6 +5,8 @@ import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mtm.cloudconsult.R;
+import com.mtm.cloudconsult.app.adapter.RecycleSongAdapter;
+import com.mtm.cloudconsult.mvp.model.bean.SongRecycleBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,11 +59,13 @@ public class OneFragment extends Fragment implements SwipeRefreshLayout.OnRefres
     ImageView expandImg;
     @BindView(R.id.expand_title)
     TextView expandTitle;
-    @BindView(R.id.rl_one_gedan)
+    @BindView(R.id.rl_one_song)
     RelativeLayout rlOneGedan;
-    @BindView(R.id.ll_one_gedan_list)
-    LinearLayout llOneGedanList;
+    @BindView(R.id.recycle_one_song)
+    RecyclerView recycleOneSong;
     private boolean collectExpanded;
+    private RecycleSongAdapter songAdapter;
+    private List<SongRecycleBean> songList;
 
     public OneFragment() {
         // Required empty public constructor
@@ -71,8 +80,28 @@ public class OneFragment extends Fragment implements SwipeRefreshLayout.OnRefres
         unbinder = ButterKnife.bind(this, view);
         swipeRefresh.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimaryDark);
         swipeRefresh.setOnRefreshListener(this);
-
+        initView();
+        initData();
         return view;
+    }
+
+    private void initData() {
+
+        songList=new ArrayList<>();
+        for(int i=0;i<10;i++){
+            SongRecycleBean bean=new SongRecycleBean();
+            bean.setName("歌单"+i);
+            songList.add(bean);
+        }
+        songAdapter.setNewData(songList);
+    }
+
+    private void initView() {
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        recycleOneSong.setLayoutManager(manager);
+        songAdapter = new RecycleSongAdapter(R.layout.item_fragment_one_song, new ArrayList<SongRecycleBean>());
+        recycleOneSong.setAdapter(songAdapter);
     }
 
     @Override
@@ -92,7 +121,7 @@ public class OneFragment extends Fragment implements SwipeRefreshLayout.OnRefres
         }, 2000);
     }
 
-    @OnClick({R.id.ll_one_music, R.id.ll_one_diy, R.id.ll_one_gank, R.id.ll_one_wx, R.id.ll_one_game, R.id.ll_one_dy, R.id.ll_one_bz, R.id.rl_one_gedan})
+    @OnClick({R.id.ll_one_music, R.id.ll_one_diy, R.id.ll_one_gank, R.id.ll_one_wx, R.id.ll_one_game, R.id.ll_one_dy, R.id.ll_one_bz, R.id.rl_one_song})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_one_music:
@@ -110,17 +139,18 @@ public class OneFragment extends Fragment implements SwipeRefreshLayout.OnRefres
             case R.id.ll_one_bz:
                 break;
             //创建的歌单
-            case R.id.rl_one_gedan:
+            case R.id.rl_one_song:
                 ObjectAnimator anim = null;
+                //箭头旋转
                 anim = ObjectAnimator.ofFloat(expandImg, "rotation", 90, 0);
                 if (collectExpanded) {
-                    llOneGedanList.setVisibility(View.VISIBLE);
+                    recycleOneSong.setVisibility(View.VISIBLE);
                     anim.setDuration(100);
                     anim.setRepeatCount(0);
                     anim.start();
                     collectExpanded = false;
                 } else {
-                    llOneGedanList.setVisibility(View.GONE);
+                    recycleOneSong.setVisibility(View.GONE);
                     anim.reverse();
                     collectExpanded = true;
                 }

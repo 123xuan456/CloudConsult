@@ -22,7 +22,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@color/colorPrimary" />
@@ -322,7 +322,7 @@
                     android:background="@color/colorLine" />
 
                 <RelativeLayout
-                    android:id="@+id/rl_one_gedan"
+                    android:id="@+id/rl_one_song"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/theme_color_common_section"
@@ -350,95 +350,11 @@
                         android:textSize="12sp" />
                 </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/ll_one_gedan_list"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle_one_song"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_one_bz" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="壁纸"
-                            android:textColor="@color/colorContent"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.1dp"
-                        android:layout_marginLeft="50dp"
-                        android:background="@color/colorLine" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_one_bz" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="壁纸"
-                            android:textColor="@color/colorContent"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.1dp"
-                        android:layout_marginLeft="50dp"
-                        android:background="@color/colorLine" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_one_bz" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="壁纸"
-                            android:textColor="@color/colorContent"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.1dp"
-                        android:layout_marginLeft="50dp"
-                        android:background="@color/colorLine" />
-                </LinearLayout>
-
-
+                    android:layout_height="match_parent"
+                    android:padding="5dp" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
