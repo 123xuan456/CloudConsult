@@ -7,7 +7,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.mtm.cloudconsult.di.module.TFriendModule;
 
 import com.jess.arms.di.scope.FragmentScope;
-import com.mtm.cloudconsult.mvp.ui.fragment.TFriendFragment;
+import com.mtm.cloudconsult.mvp.ui.fragment.two.TFriendFragment;
 
 @FragmentScope
 @Component(modules = TFriendModule.class, dependencies = AppComponent.class)

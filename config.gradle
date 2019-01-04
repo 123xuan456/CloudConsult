@@ -56,7 +56,8 @@ ext {
                 "smartrefresh-layout"      : "com.scwang.smartrefresh:SmartRefreshLayout:${version["smartrefreshVersion"]}",
                 "smartrefresh-header"      : "com.scwang.smartrefresh:SmartRefreshHeader:${version["smartrefreshVersion"]}",
                 "baserecyclerviewadapter"  : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30",
-                "circleimageview"  : "de.hdodenhof:circleimageview:2.1.0",
+                "circleimageview"          : "de.hdodenhof:circleimageview:2.1.0",
+                "banner"                   : "com.youth.banner:banner:1.4.10",
 
 
                 //rx1

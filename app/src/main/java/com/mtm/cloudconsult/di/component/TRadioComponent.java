@@ -7,7 +7,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.mtm.cloudconsult.di.module.TRadioModule;
 
 import com.jess.arms.di.scope.FragmentScope;
-import com.mtm.cloudconsult.mvp.ui.fragment.TRadioFragment;
+import com.mtm.cloudconsult.mvp.ui.fragment.two.TRadioFragment;
 
 @FragmentScope
 @Component(modules = TRadioModule.class, dependencies = AppComponent.class)

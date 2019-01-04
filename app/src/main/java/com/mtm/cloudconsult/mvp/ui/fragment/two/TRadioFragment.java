@@ -1,4 +1,4 @@
-package com.mtm.cloudconsult.mvp.ui.fragment;
+package com.mtm.cloudconsult.mvp.ui.fragment.two;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,35 +15,35 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
 import com.mtm.cloudconsult.R;
-import com.mtm.cloudconsult.di.component.DaggerTFriendComponent;
-import com.mtm.cloudconsult.di.module.TFriendModule;
-import com.mtm.cloudconsult.mvp.contract.TFriendContract;
-import com.mtm.cloudconsult.mvp.presenter.TFriendPresenter;
+import com.mtm.cloudconsult.di.component.DaggerTRadioComponent;
+import com.mtm.cloudconsult.di.module.TRadioModule;
+import com.mtm.cloudconsult.mvp.contract.TRadioContract;
+import com.mtm.cloudconsult.mvp.presenter.TRadioPresenter;
 
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 
-public class TFriendFragment extends BaseFragment<TFriendPresenter> implements TFriendContract.View {
+public class TRadioFragment extends BaseFragment<TRadioPresenter> implements TRadioContract.View {
 
-    public static TFriendFragment newInstance() {
-        TFriendFragment fragment = new TFriendFragment();
+    public static TRadioFragment newInstance() {
+        TRadioFragment fragment = new TRadioFragment();
         return fragment;
     }
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-        DaggerTFriendComponent //如找不到该类,请编译一下项目
+        DaggerTRadioComponent //如找不到该类,请编译一下项目
                 .builder()
                 .appComponent(appComponent)
-                .tFriendModule(new TFriendModule(this))
+                .tRadioModule(new TRadioModule(this))
                 .build()
                 .inject(this);
     }
 
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_tfriend, container, false);
+        return inflater.inflate(R.layout.fragment_tradio, container, false);
     }
 
     @Override

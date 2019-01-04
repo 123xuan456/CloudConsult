@@ -86,7 +86,6 @@ public class OneFragment extends Fragment implements SwipeRefreshLayout.OnRefres
     }
 
     private void initData() {
-
         songList=new ArrayList<>();
         for(int i=0;i<10;i++){
             SongRecycleBean bean=new SongRecycleBean();
@@ -94,6 +93,9 @@ public class OneFragment extends Fragment implements SwipeRefreshLayout.OnRefres
             songList.add(bean);
         }
         songAdapter.setNewData(songList);
+        expandTitle.setText(String.format(getResources().getString(R.string.string_one_song),songList.size()));
+
+
     }
 
     private void initView() {

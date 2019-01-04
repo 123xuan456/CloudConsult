@@ -64,6 +64,7 @@ dependencies {
         exclude module: 'support-annotations'
     }
     implementation rootProject.ext.dependencies["paginate"]
+    implementation rootProject.ext.dependencies["banner"]
     implementation rootProject.ext.dependencies["circleimageview"]
     implementation rootProject.ext.dependencies["smartrefresh-layout"]
     implementation rootProject.ext.dependencies["smartrefresh-header"]

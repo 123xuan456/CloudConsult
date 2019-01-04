@@ -19,20 +19,8 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-
 import com.jess.arms.base.delegate.AppLifecycles;
 import com.mtm.cloudconsult.BuildConfig;
-import com.mtm.cloudconsult.R;
-import com.scwang.smartrefresh.header.WaterDropHeader;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
 import butterknife.ButterKnife;
 import timber.log.Timber;
@@ -62,6 +50,7 @@ public class AppLifecyclesImpl implements AppLifecycles {
             //比如添加三个策略,一个打印日志,一个将日志保存本地,一个将日志上传服务器
             Timber.plant(new Timber.DebugTree());
             ButterKnife.setDebug(true);
+
         }
     }
 

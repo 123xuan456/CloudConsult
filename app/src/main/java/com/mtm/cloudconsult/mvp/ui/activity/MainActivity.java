@@ -23,6 +23,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.mtm.cloudconsult.R;
 import com.mtm.cloudconsult.app.adapter.MyFragmentPagerAdapter;
+import com.mtm.cloudconsult.app.api.Api;
 import com.mtm.cloudconsult.di.component.DaggerMainComponent;
 import com.mtm.cloudconsult.di.module.MainModule;
 import com.mtm.cloudconsult.mvp.contract.MainContract;
@@ -36,8 +37,10 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
+import static com.mtm.cloudconsult.app.api.Api.API_GANKIO;
 
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View , ViewPager.OnPageChangeListener {
@@ -79,6 +82,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        RetrofitUrlManager.getInstance().putDomain(Api.GANK_DOMAIN_NAME, API_GANKIO);
+        RetrofitUrlManager.getInstance().putDomain(Api.DOUBAN_DOMAIN_NAME, Api.API_DOUBAN);
+        RetrofitUrlManager.getInstance().putDomain(Api.TING_DOMAIN_NAME, Api.API_TING);
+        RetrofitUrlManager.getInstance().putDomain(Api.FIR_DOMAIN_NAME, Api.API_FIR);
+        RetrofitUrlManager.getInstance().putDomain(Api.WAN_ANDROID_DOMAIN_NAME, Api.API_WAN_ANDROID);
+        RetrofitUrlManager.getInstance().putDomain(Api.QSBK_DOMAIN_NAME, Api.API_QSBK);
         initContentFragment();
     }
     private void initContentFragment() {
