@@ -7,10 +7,18 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
     <string name="string_one_song">创建的歌单（%1$d）</string>
-
+    <string name="action_share">分享</string>
+    <string name="actionbar_search">搜索</string>
+    <string name="actionbar_more">更多信息</string>
+    <string name="actionbar_webview_share">分享</string>
+    <string name="actionbar_webview_cope">复制链接</string>
+    <string name="actionbar_webview_open">浏览器打开</string>
+    <string name="actionbar_webview_refresh">刷新</string>
+    <string name="actionbar_webview_collect">添加到收藏</string>
+    <string name="actionbar_share">分享给朋友\(^o^)/~</string>
+    <string name="picture_has_save_to">已保存至 %s</string>
 
 
 </resources>

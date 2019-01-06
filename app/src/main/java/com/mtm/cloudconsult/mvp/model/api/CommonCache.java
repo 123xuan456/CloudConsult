@@ -5,9 +5,8 @@ import com.mtm.cloudconsult.mvp.model.bean.FrontpageBean;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.rx_cache2.DynamicKey;
-import io.rx_cache2.EvictProvider;
 import io.rx_cache2.LifeCache;
+import io.rx_cache2.Reply;
 
 /**
  * Created by MTM on 2019/1/4.
@@ -20,5 +19,5 @@ public interface CommonCache {
      * 轮播图
      */
     @LifeCache(duration = 1, timeUnit = TimeUnit.DAYS)
-    Observable<FrontpageBean> getFrontpage(Observable<FrontpageBean> commonService, DynamicKey idLastUserQueried, EvictProvider evictProvider);
+    Observable<Reply<FrontpageBean>> getFrontpage(Observable<FrontpageBean> commonService);
 }

@@ -21,13 +21,13 @@
         app:srlEnableHeaderTranslationContent="false"
         app:srlEnablePreviewInEditMode="false"
         app:srlEnableNestedScrolling="true">
+
         <com.scwang.smartrefresh.header.MaterialHeader
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srlPrimaryColor="@color/colorPrimary"
-            app:srlAccentColor="@android:color/white"
-            android:layout_marginTop="?attr/actionBarSize"/>
+            android:layout_marginTop="-20dp"
+            />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"

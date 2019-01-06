@@ -15,6 +15,7 @@
  */
 package com.mtm.cloudconsult.app.config;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
@@ -34,6 +35,9 @@ import com.squareup.leakcanary.RefWatcher;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
 
 import me.jessyan.progressmanager.ProgressManager;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
@@ -98,8 +102,16 @@ public final class GlobalConfiguration implements ConfigModule {
                             .enableComplexMapKeySerialization();//支持将序列化 key 为 Object 的 Map, 默认只能序列化 key 为 String 的 Map
                 })
                 .okhttpConfiguration((context1, okhttpBuilder) -> {//这里可以自己自定义配置 Okhttp 的参数
-//                    okhttpBuilder.sslSocketFactory(); //支持 Https, 详情请百度
+//                    okhttpBuilder.sslSocketFactory(sslContext.getSocketFactory()); //支持 Https, 详情请百度
                     okhttpBuilder.writeTimeout(10, TimeUnit.SECONDS);
+                    //信任所有服务器地址
+                    okhttpBuilder.hostnameVerifier(new HostnameVerifier() {
+                        @SuppressLint("BadHostnameVerifier")
+                        @Override
+                        public boolean verify(String hostname, SSLSession session) {
+                            return true;
+                        }
+                    });
                     //使用一行代码监听 Retrofit／Okhttp 上传下载进度监听,以及 Glide 加载进度监听, 详细使用方法请查看 https://github.com/JessYanCoding/ProgressManager
                     ProgressManager.getInstance().with(okhttpBuilder);
                     //让 Retrofit 同时支持多个 BaseUrl 以及动态改变 BaseUrl, 详细使用方法请查看 https://github.com/JessYanCoding/RetrofitUrlManager
@@ -142,4 +154,7 @@ public final class GlobalConfiguration implements ConfigModule {
             }
         });
     }
+
+
+
 }
