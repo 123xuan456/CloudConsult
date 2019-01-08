@@ -35,11 +35,18 @@
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true" />
         <activity android:name=".mvp.ui.activity.Main2Activity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".mvp.ui.activity.SplashActivity"
+            android:theme="@style/AppThemeSplash">
+
         </activity>
     </application>
 

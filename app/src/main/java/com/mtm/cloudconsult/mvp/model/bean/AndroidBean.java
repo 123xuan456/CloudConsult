@@ -9,7 +9,7 @@ import java.util.List;
  * 首页item bean
  */
 
-public class AndroidBean implements Serializable {
+public class AndroidBean implements Serializable  {
 
     // 存储单独设置的值，用来显示title
     private String type_title;
@@ -123,4 +123,5 @@ public class AndroidBean implements Serializable {
     public String getImage_url() {
         return image_url;
     }
+
 }

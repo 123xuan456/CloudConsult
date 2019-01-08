@@ -20,9 +20,11 @@ import com.jess.arms.utils.ArmsUtils;
 import com.mtm.cloudconsult.R;
 import com.mtm.cloudconsult.app.adapter.TRecommendAdapter;
 import com.mtm.cloudconsult.app.utils.GlideImageLoader;
+import com.mtm.cloudconsult.app.utils.StringUtils;
 import com.mtm.cloudconsult.di.component.DaggerTRecommendComponent;
 import com.mtm.cloudconsult.di.module.TRecommendModule;
 import com.mtm.cloudconsult.mvp.contract.TRecommendContract;
+import com.mtm.cloudconsult.mvp.model.bean.AndroidBean;
 import com.mtm.cloudconsult.mvp.model.bean.FrontpageBean;
 import com.mtm.cloudconsult.mvp.presenter.TRecommendPresenter;
 import com.mtm.cloudconsult.mvp.ui.activity.WebViewActivity;
@@ -31,6 +33,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.youth.banner.Banner;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
@@ -70,10 +73,14 @@ public class TRecommendFragment extends BaseFragment<TRecommendPresenter> implem
         materialHeader.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimaryDark);
         recyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        tRecommendAdapter=new TRecommendAdapter();
+        tRecommendAdapter=new TRecommendAdapter(new ArrayList<>());
         recyclerView.setAdapter(tRecommendAdapter);
         if (mPresenter != null) {
             mPresenter.showBannerPage(1,true);
+            String year = StringUtils.getTodayTime().get(0);
+            String month = StringUtils.getTodayTime().get(1);
+            String day = StringUtils.getTodayTime().get(2);
+            mPresenter.showRecyclerViewData(year,month,day);
         }
         //添加Header
          View header = LayoutInflater.from(getContext()).inflate(R.layout.header_item_everyday, recyclerView, false);
@@ -160,5 +167,14 @@ public class TRecommendFragment extends BaseFragment<TRecommendPresenter> implem
             });
         }
         isLoadBanner = true;
+    }
+
+    /**
+     * 列表数据
+     * @param lists
+     */
+    @Override
+    public void showListView(ArrayList<List<AndroidBean>> lists) {
+        tRecommendAdapter.setNewData(lists);
     }
 }
