@@ -8,7 +8,7 @@ package com.mtm.cloudconsult.app.api;
 
 public interface Api {
     // gankio、豆瓣、（轮播图）
-     String API_GANKIO = "https://gank.io/api/";
+     String API_GANKIO = "https://gank.io";
      String API_DOUBAN = "Https://api.douban.com/";
      String API_TING = "https://tingapi.ting.baidu.com/v1/restserver/";
      String API_FIR = "http://api.fir.im/apps/";

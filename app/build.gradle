@@ -1,4 +1,11 @@
 apply plugin: 'com.android.application'
+
+//调试环境下注释掉
+//bugly热部署
+//apply from: 'tinker-support.gradle'
+
+
+//apply from: 'tinkerpatch.gradle'
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
@@ -15,7 +22,20 @@ android {
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
         testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
+        // 开启multidex
+        multiDexEnabled true
     }
+
+
+    signingConfigs {
+        release {
+            storeFile rootProject.file("keystore/mtm.keystore")
+            storePassword 'mtm2000.cn'
+            keyAlias 'mtm.keystore'
+            keyPassword 'mtm2000.cn'
+        }
+    }
+
     buildTypes {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
@@ -29,8 +49,19 @@ android {
             buildConfigField "boolean", "USE_CANARY", "false"
             minifyEnabled true
             shrinkResources true
-            zipAlignEnabled true
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
         }
     }
 
@@ -58,6 +89,17 @@ dependencies {
     implementation rootProject.ext.dependencies["retrofit-url-manager"]
     implementation rootProject.ext.dependencies["lifecyclemodel"]
     implementation rootProject.ext.dependencies["butterknife"]
+    implementation rootProject.ext.dependencies["multidex"]
+
+//    //bugly热部署
+    implementation rootProject.ext.dependencies["bugly"]
+    // 指定tinker依赖版本（注：应用升级1.3.5版本起，不再内置tinker）
+    implementation rootProject.ext.dependencies["bugly-tinker"]
+    //tinkerpatch热部署
+//    implementation("com.tinkerpatch.sdk:tinkerpatch-android-sdk:1.2.9") {
+//        changing = true
+//    }
+
     //view
     annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
         exclude module: 'support-annotations'

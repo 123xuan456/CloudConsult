@@ -9,6 +9,10 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
+        //热部署
+        classpath 'com.tencent.bugly:tinker-support:1.1.2'
+//        classpath("com.tinkerpatch.sdk:tinkerpatch-gradle-plugin:1.2.9") { changing = true }
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

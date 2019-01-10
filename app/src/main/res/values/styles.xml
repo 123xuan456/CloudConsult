@@ -24,7 +24,7 @@
     <!-- 避免启动白色背景 -->
     <style name="AppThemeSplash" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:background">@drawable/timg</item>
+        <item name="android:background">@drawable/ic_splash</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

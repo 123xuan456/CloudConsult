@@ -24,6 +24,6 @@ public class Main2Activity extends AppCompatActivity {
         Glide.with(this).load("https://upload-images.jianshu.io/upload_images/1354448-7809c9d06fbc69bd.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240")
                 .apply(options)
                 .into(iv);
-
+//        ArmsUtils.snackbarText("打包成功！！");
     }
 }

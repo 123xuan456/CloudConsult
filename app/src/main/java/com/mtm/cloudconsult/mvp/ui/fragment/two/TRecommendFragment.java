@@ -71,6 +71,9 @@ public class TRecommendFragment extends BaseFragment<TRecommendPresenter> implem
         final RefreshLayout refreshLayout = (RefreshLayout) view.findViewById(R.id.refreshLayout);
         final MaterialHeader materialHeader = (MaterialHeader) view.findViewById(R.id.header);
         materialHeader.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimaryDark);
+        //提升滑动流畅度
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setHasFixedSize(false);
         recyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         tRecommendAdapter=new TRecommendAdapter(new ArrayList<>());

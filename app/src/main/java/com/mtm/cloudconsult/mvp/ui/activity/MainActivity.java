@@ -82,6 +82,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+//        ArmsUtils.snackbarText("打包成功！！");
         RetrofitUrlManager.getInstance().putDomain(Api.GANK_DOMAIN_NAME, API_GANKIO);
         RetrofitUrlManager.getInstance().putDomain(Api.DOUBAN_DOMAIN_NAME, Api.API_DOUBAN);
         RetrofitUrlManager.getInstance().putDomain(Api.TING_DOMAIN_NAME, Api.API_TING);

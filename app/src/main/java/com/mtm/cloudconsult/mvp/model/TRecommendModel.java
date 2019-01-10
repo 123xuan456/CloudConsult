@@ -17,6 +17,8 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
+import io.rx_cache2.DynamicKey;
+import io.rx_cache2.EvictDynamicKey;
 
 
 @FragmentScope
@@ -56,15 +58,16 @@ public class TRecommendModel extends BaseModel implements TRecommendContract.Mod
 
     @Override
     public Observable<GankIoDayBean> getGankIoDay(String year, String month, String day) {
-        return  mRepositoryManager.obtainRetrofitService(CommonService.class).getGankIoDay(year, month, day);
-//        return  Observable.just(mRepositoryManager.obtainRetrofitService(CommonService.class).getGankIoDay(year, month, day))
-//                .flatMap(new Function<Observable<GankIoDayBean>, ObservableSource<GankIoDayBean>>() {
-//                    @Override
-//                    public ObservableSource<GankIoDayBean> apply(Observable<GankIoDayBean> observable) throws Exception {
-//                        return mRepositoryManager.obtainCacheService(CommonCache.class)
-//                                .getGankIoDayBean(observable,new DynamicKey(year+month+day),new EvictDynamicKey(true))
-//                                .map(listReply -> listReply.getData());
-//                    }
-//                });
+//        return  mRepositoryManager.obtainRetrofitService(CommonService.class).getGankIoDay(year, month, day);
+        return  Observable.just(mRepositoryManager.obtainRetrofitService(CommonService.class).getGankIoDay(year, month, day))
+                .flatMap(new Function<Observable<GankIoDayBean>, ObservableSource<GankIoDayBean>>() {
+                    @Override
+                    public ObservableSource<GankIoDayBean> apply(Observable<GankIoDayBean> observable) throws Exception {
+                        return mRepositoryManager.obtainCacheService(CommonCache.class)
+//                                .getGankIoDayBean(observable)
+                                .getGankIoDayBean(observable,new DynamicKey(year+month+day),new EvictDynamicKey(false))
+                                .map(listReply -> listReply.getData());
+                    }
+                });
     }
 }

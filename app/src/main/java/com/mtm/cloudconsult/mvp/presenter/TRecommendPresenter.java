@@ -99,6 +99,9 @@ public class TRecommendPresenter extends BasePresenter<TRecommendContract.Model,
     }
 
     public void showRecyclerViewData(String year, String month, String day) {
+        SPUtils.putString(HOME_ONE, "");
+        SPUtils.putString(HOME_TWO, "");
+        SPUtils.putString(HOME_SIX, "");
         LogUtils.warnInfo(year + month + day);
         Observable<GankIoDayBean> requestInfo = mModel.getGankIoDay(year, month, day);
         requestInfo.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
@@ -129,8 +132,17 @@ public class TRecommendPresenter extends BasePresenter<TRecommendContract.Model,
                         } else {
                             //一直请求获取上一天的数据，直到请求到数据为止
                             ArrayList<String> lastTime = StringUtils.getLastTime(year, month, day);
-                            showRecyclerViewData(lastTime.get(0), lastTime.get(1), lastTime.get(2));
+                            try {
+                                showRecyclerViewData(lastTime.get(0), lastTime.get(1), lastTime.get(2));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        super.onError(t);
                     }
                 });
     }
