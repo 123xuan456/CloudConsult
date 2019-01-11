@@ -40,7 +40,6 @@ public class BaseAppliction extends BaseApplication {
          * 初始化热更新
          */
         initBuglyTinker();
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)

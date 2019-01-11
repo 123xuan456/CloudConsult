@@ -24,6 +24,9 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
@@ -104,7 +107,29 @@ public class TRecommendPresenter extends BasePresenter<TRecommendContract.Model,
         SPUtils.putString(HOME_SIX, "");
         LogUtils.warnInfo(year + month + day);
         Observable<GankIoDayBean> requestInfo = mModel.getGankIoDay(year, month, day);
-        requestInfo.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
+        requestInfo.subscribeOn(Schedulers.io())
+                //在执行任务之前 do some thing ...
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        if (mRootView != null) {
+                            mRootView.showLoading();
+                        }
+                    }
+                })
+                //doOnSubscribe 切换在主线程
+                .subscribeOn(AndroidSchedulers.mainThread())
+                //在主线程回调
+                .observeOn(AndroidSchedulers.mainThread())
+                //任务结束 do some thing ...
+                .doFinally(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        if (mRootView != null) {
+                            mRootView.hideLoading();
+                        }
+                    }
+                })
                 .subscribe(new ErrorHandleSubscriber<GankIoDayBean>(mErrorHandler) {
                     @Override
                     public void onNext(GankIoDayBean gankIoDayBean) {

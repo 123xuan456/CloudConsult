@@ -211,3 +211,6 @@
 # tinker
 -dontwarn com.tencent.tinker.**
 -keep class com.tencent.tinker.** { *; }
+#loadsir
+-dontwarn com.kingja.loadsir.**
+-keep class com.kingja.loadsir.** {*;}

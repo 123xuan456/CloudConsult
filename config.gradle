@@ -58,6 +58,7 @@ ext {
                 "baserecyclerviewadapter"  : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.44",
                 "circleimageview"          : "de.hdodenhof:circleimageview:2.1.0",
                 "banner"                   : "com.youth.banner:banner:1.4.10",
+                "loadsir"                   : "com.kingja.loadsir:loadsir:1.3.6",
 
 
                 //rx1

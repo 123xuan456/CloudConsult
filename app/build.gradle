@@ -90,6 +90,7 @@ dependencies {
     implementation rootProject.ext.dependencies["lifecyclemodel"]
     implementation rootProject.ext.dependencies["butterknife"]
     implementation rootProject.ext.dependencies["multidex"]
+    implementation rootProject.ext.dependencies["loadsir"]
 
 //    //bugly热部署
     implementation rootProject.ext.dependencies["bugly"]

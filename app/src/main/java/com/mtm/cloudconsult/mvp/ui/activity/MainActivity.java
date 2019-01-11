@@ -1,9 +1,16 @@
 package com.mtm.cloudconsult.mvp.ui.activity;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -11,6 +18,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +32,7 @@ import com.jess.arms.utils.ArmsUtils;
 import com.mtm.cloudconsult.R;
 import com.mtm.cloudconsult.app.adapter.MyFragmentPagerAdapter;
 import com.mtm.cloudconsult.app.api.Api;
+import com.mtm.cloudconsult.app.view.SweetAlertDialog;
 import com.mtm.cloudconsult.di.component.DaggerMainComponent;
 import com.mtm.cloudconsult.di.module.MainModule;
 import com.mtm.cloudconsult.mvp.contract.MainContract;
@@ -31,6 +40,7 @@ import com.mtm.cloudconsult.mvp.presenter.MainPresenter;
 import com.mtm.cloudconsult.mvp.ui.fragment.OneFragment;
 import com.mtm.cloudconsult.mvp.ui.fragment.ThreeFragment;
 import com.mtm.cloudconsult.mvp.ui.fragment.TwoFragment;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 
@@ -38,7 +48,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
+import timber.log.Timber;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static com.jess.arms.utils.ArmsUtils.killAll;
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 import static com.mtm.cloudconsult.app.api.Api.API_GANKIO;
 
@@ -46,6 +60,7 @@ import static com.mtm.cloudconsult.app.api.Api.API_GANKIO;
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View , ViewPager.OnPageChangeListener {
 
 
+    private static final int CODE_WRITE = 1000;
     @BindView(R.id.iv_title_menu)
     ImageView ivTitleMenu;
     @BindView(R.id.ll_title_menu)
@@ -64,7 +79,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     NavigationView navView;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
-
+    private boolean mIsExit;
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
         DaggerMainComponent //如找不到该类,请编译一下项目
@@ -89,8 +104,77 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         RetrofitUrlManager.getInstance().putDomain(Api.FIR_DOMAIN_NAME, Api.API_FIR);
         RetrofitUrlManager.getInstance().putDomain(Api.WAN_ANDROID_DOMAIN_NAME, Api.API_WAN_ANDROID);
         RetrofitUrlManager.getInstance().putDomain(Api.QSBK_DOMAIN_NAME, Api.API_QSBK);
+        requestPermissions();
         initContentFragment();
     }
+
+    /**
+     * 添加动态权限
+     */
+    @SuppressLint("CheckResult")
+    private void requestPermissions() {
+        RxPermissions rxPermission = new RxPermissions(MainActivity.this);
+        rxPermission
+                .requestEach(ACCESS_FINE_LOCATION,
+                        WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+                .subscribe(permission -> {
+                    if (permission.granted) {
+                        // 用户已经同意该权限
+                        Timber.e("%s is granted.", permission.name);
+                    } else if (permission.shouldShowRequestPermissionRationale) {
+                        // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
+                        Timber.d("%s is denied. More info should be provided.", permission.name);
+                        if (permission.name.equals(WRITE_EXTERNAL_STORAGE) ) {
+                            showAlertDialog("存储权限为必要权限，请开启存储权限，已正常使用。","确定",false);
+                        }
+                    } else {
+                        // 用户拒绝了该权限，并且选中『不再询问』
+                        Timber.e("%s is denied.", permission.name);
+                        if (permission.name.equals(WRITE_EXTERNAL_STORAGE) ) {
+                            showAlertDialog("在系统设置-应用-文书审核-权限中开启储存权限，已正常使用。","去设置",true);
+                        }
+                    }
+                });
+    }
+
+    private void showAlertDialog(String content,String confirmText,boolean denied) {
+        SweetAlertDialog dialog = new SweetAlertDialog(MainActivity.this, SweetAlertDialog.WARNING_TYPE);
+        dialog.setConfirmText(confirmText);
+        //不支持点击返回退出
+        dialog.setCancelable(false);
+        dialog.setTitleText("权限申请");
+        dialog.setContentText(content);
+        dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onClick(SweetAlertDialog sDialog) {
+                if (!denied) {
+                    requestPermissions();
+                }else {
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                    intent.setData(uri);
+                    startActivityForResult(intent, CODE_WRITE);
+                }
+                dialog.dismiss();
+            }
+        });
+        dialog.setCancelText("取消");
+        dialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                MainActivity.this.finish();
+            }
+        });
+        dialog.showCancelButton(true);
+        if (dialog.isShowing()){
+            dialog.dismiss();
+        }
+        dialog.show();
+    }
+
     private void initContentFragment() {
         ArrayList<Fragment> mFragmentList = new ArrayList<>();
         mFragmentList.add(new OneFragment());
@@ -255,5 +339,53 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CODE_WRITE) {
+            //TODO something;
+            requestPermissions();
+        }
+    }
+
+    /**
+     * 双击返回键退出
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (mIsExit) {
+                this.finish();
+
+            } else {
+                Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+                mIsExit = true;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mIsExit = false;
+                    }
+                }, 2000);
+            }
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * 退出应用程序
+     */
+    public void appExit() {
+        try {
+            killAll();
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

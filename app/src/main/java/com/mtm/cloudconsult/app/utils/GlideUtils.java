@@ -171,6 +171,7 @@ public class GlideUtils {
     public static void displayRandom(int imgNumber, String imageUrl, ImageView imageView) {
 
         RequestOptions options = new RequestOptions()
+                .transforms(new CenterCrop(), new RoundedCorners(5))
                 .error(getMusicDefaultPic(imgNumber))
                 .placeholder(getMusicDefaultPic(imgNumber));
 

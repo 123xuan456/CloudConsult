@@ -17,10 +17,13 @@ import com.bumptech.glide.Glide;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+import com.kingja.loadsir.core.LoadSir;
 import com.mtm.cloudconsult.R;
 import com.mtm.cloudconsult.app.adapter.TRecommendAdapter;
+import com.mtm.cloudconsult.app.callback.ErrorCallback;
 import com.mtm.cloudconsult.app.utils.GlideImageLoader;
 import com.mtm.cloudconsult.app.utils.StringUtils;
+import com.mtm.cloudconsult.app.view.LoadingCallback;
 import com.mtm.cloudconsult.di.component.DaggerTRecommendComponent;
 import com.mtm.cloudconsult.di.module.TRecommendModule;
 import com.mtm.cloudconsult.mvp.contract.TRecommendContract;
@@ -68,6 +71,7 @@ public class TRecommendFragment extends BaseFragment<TRecommendPresenter> implem
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_trecommend, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+
         final RefreshLayout refreshLayout = (RefreshLayout) view.findViewById(R.id.refreshLayout);
         final MaterialHeader materialHeader = (MaterialHeader) view.findViewById(R.id.header);
         materialHeader.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimaryDark);
@@ -87,17 +91,21 @@ public class TRecommendFragment extends BaseFragment<TRecommendPresenter> implem
         }
         //添加Header
          View header = LayoutInflater.from(getContext()).inflate(R.layout.header_item_everyday, recyclerView, false);
+         View footer = LayoutInflater.from(getContext()).inflate(R.layout.footer_item_everyday, recyclerView, false);
         banner=header.findViewById(R.id.banner);
         tRecommendAdapter.addHeaderView(header);
+        tRecommendAdapter.addFooterView(footer);
         tRecommendAdapter.openLoadAnimation();
         return view;
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
-
-
+        LoadSir loadSir = new LoadSir.Builder()
+                .addCallback(new ErrorCallback())
+                .addCallback(new LoadingCallback())
+                .setDefaultCallback(LoadingCallback.class)
+                .build();
     }
 
     @Override
@@ -108,11 +116,12 @@ public class TRecommendFragment extends BaseFragment<TRecommendPresenter> implem
     @Override
     public void showLoading() {
 
+
+
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
