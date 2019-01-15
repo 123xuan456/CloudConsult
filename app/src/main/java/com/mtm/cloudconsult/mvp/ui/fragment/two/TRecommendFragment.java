@@ -17,13 +17,10 @@ import com.bumptech.glide.Glide;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
-import com.kingja.loadsir.core.LoadSir;
 import com.mtm.cloudconsult.R;
 import com.mtm.cloudconsult.app.adapter.TRecommendAdapter;
-import com.mtm.cloudconsult.app.callback.ErrorCallback;
 import com.mtm.cloudconsult.app.utils.GlideImageLoader;
 import com.mtm.cloudconsult.app.utils.StringUtils;
-import com.mtm.cloudconsult.app.view.LoadingCallback;
 import com.mtm.cloudconsult.di.component.DaggerTRecommendComponent;
 import com.mtm.cloudconsult.di.module.TRecommendModule;
 import com.mtm.cloudconsult.mvp.contract.TRecommendContract;
@@ -101,11 +98,6 @@ public class TRecommendFragment extends BaseFragment<TRecommendPresenter> implem
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        LoadSir loadSir = new LoadSir.Builder()
-                .addCallback(new ErrorCallback())
-                .addCallback(new LoadingCallback())
-                .setDefaultCallback(LoadingCallback.class)
-                .build();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.mtm.cloudconsult.app.view;
+package com.mtm.cloudconsult.app.callback;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
@@ -10,10 +10,7 @@ import com.mtm.cloudconsult.R;
 
 
 /**
- * Description:TODO
- * Create Time:2017/9/3 10:22
- * Author:KingJA
- * Email:kingjavip@gmail.com
+ * 加载中
  */
 public class LoadingCallback extends Callback {
 

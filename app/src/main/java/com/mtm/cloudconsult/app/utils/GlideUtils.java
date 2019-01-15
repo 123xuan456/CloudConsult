@@ -225,7 +225,50 @@ public class GlideUtils {
                 }
             }
         }).start();
-
-
     }
+
+    /**
+     * 用于干货item，将gif图转换为静态图
+     */
+    public static void displayGif(String url, ImageView imageView) {
+
+        RequestOptions options = new RequestOptions()
+                .placeholder(R.drawable.img_one_bi_one)
+                .error(R.drawable.img_one_bi_one);
+
+
+        Glide.with(imageView.getContext()).load(url)
+                .apply(options)
+                .into(imageView);
+    }
+
+    /**
+     * 书籍、妹子图、电影列表图
+     * 默认图区别
+     */
+    public static void displayEspImage(String url, ImageView imageView, int type) {
+        RequestOptions options = new RequestOptions()
+                .placeholder(getDefaultPic(type))
+                .error(getDefaultPic(type));
+        Glide.with(imageView.getContext())
+                .load(url)
+                .apply(options)
+                .into(imageView);
+    }
+    private static int getDefaultPic(int type) {
+        switch (type) {
+            case 0:// 电影
+                return R.drawable.img_default_movie;
+            case 1:// 妹子
+                return R.drawable.img_default_meizi;
+            case 2:// 书籍
+                return R.drawable.img_default_book;
+            case 3:
+                return R.drawable.shape_bg_loading;
+            default:
+                break;
+        }
+        return R.drawable.img_default_meizi;
+    }
+
 }

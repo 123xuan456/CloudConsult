@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll_progress_bar"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/img_err"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"
+        android:layout_centerInParent="true"
         android:src="@drawable/load_err" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/img_err"
-        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="@dimen/dp_10"
         android:text="加载失败,点击重试"
         android:textSize="15sp" />
 

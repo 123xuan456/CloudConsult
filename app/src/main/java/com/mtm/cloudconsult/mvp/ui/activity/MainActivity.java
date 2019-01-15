@@ -29,9 +29,12 @@ import android.widget.Toast;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+import com.kingja.loadsir.core.LoadSir;
 import com.mtm.cloudconsult.R;
 import com.mtm.cloudconsult.app.adapter.MyFragmentPagerAdapter;
 import com.mtm.cloudconsult.app.api.Api;
+import com.mtm.cloudconsult.app.callback.ErrorCallback;
+import com.mtm.cloudconsult.app.callback.LoadingCallback;
 import com.mtm.cloudconsult.app.view.SweetAlertDialog;
 import com.mtm.cloudconsult.di.component.DaggerMainComponent;
 import com.mtm.cloudconsult.di.module.MainModule;
@@ -104,6 +107,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         RetrofitUrlManager.getInstance().putDomain(Api.FIR_DOMAIN_NAME, Api.API_FIR);
         RetrofitUrlManager.getInstance().putDomain(Api.WAN_ANDROID_DOMAIN_NAME, Api.API_WAN_ANDROID);
         RetrofitUrlManager.getInstance().putDomain(Api.QSBK_DOMAIN_NAME, Api.API_QSBK);
+
+        LoadSir.beginBuilder()
+                .addCallback(new ErrorCallback())
+                .addCallback(new LoadingCallback())
+                .commit();
         requestPermissions();
         initContentFragment();
     }
