@@ -30,17 +30,17 @@
 
  - 主要数据来源：[Gank.Io][9]、[豆瓣Api][10]、[wanandroid][27]。
 
- - 使用到的开源库：[glide][11]、MVPArms[1]、butterknife[15]
- 、[bottomsheet][12]、[photoview][16]、[SmartRefreshLayout][14]、BaseRecyclerViewAdapterHelper[17]
- 、circleimageview[18]、banner[19]、loadsir[20]、PhotoView[21] 、utilcode[22]等等。
+ - 使用到的开源库：[glide][11]、[MVPArms][1]、[butterknife][15]
+ 、[bottomsheet][12]、[photoview][16]、[SmartRefreshLayout][14]、[BaseRecyclerViewAdapterHelper][17]
+ 、[circleimageview][18]、[banner][19]、[loadsir][20]、[PhotoView][21] 、utilcode[22]等等。
 
 
 ### Statement
-    感谢[MVPArms][1]提供框架支持。
+    感谢[MVPArms](https://github.com/JessYanCoding/MVPArms)提供框架支持。
 
-    感谢[云阅App][2]提供代码支持。
+    感谢[云阅App](https://github.com/youlookwhat/CloudReader)提供代码支持。
 
-    感谢[夜月咨询App][3]提供代码支持。
+    感谢[夜月咨询App](https://github.com/yeyueduxing/YeLearns)提供代码支持。
 
 
 [1]:https://github.com/JessYanCoding/MVPArms
@@ -55,6 +55,9 @@
 [34]:https://img.shields.io/badge/download-fir.im-blue.svg
 [35]:https://fir.im/cloudreader
 
+[6]:http://www.iconfont.cn/plus
+[9]:https://gank.io/api
+[10]:https://developers.douban.com/wiki/?title=terms
 [11]:https://github.com/bumptech/glide
 [12]:https://github.com/Flipboard/bottomsheet
 [13]:https://github.com/JakeWharton/NineOldAndroids
@@ -68,7 +71,7 @@
 [21]:https://github.com/chrisbanes/PhotoView
 [22]:https://github.com/Blankj/AndroidUtilCode
 
-
+[27]:http://www.wanandroid.com/index
 
 
 
@@ -79,5 +82,5 @@
 [24]:http://jingbin.me/2017/11/23/%E5%BC%80%E5%8F%91%E4%B8%AD%E6%89%80%E9%81%87%E9%97%AE%E9%A2%98%E5%BD%92%E7%BA%B3/
 [25]:http://jingbin.me/2016/12/25/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98-%E4%BA%91%E9%98%85/
 [26]:https://segmentfault.com/a/1190000002876984#articleHeader21
-[27]:http://www.wanandroid.com/index
+
 
