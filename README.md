@@ -32,10 +32,13 @@
 
  - 使用到的开源库：[glide][11]、[MVPArms][1]、[butterknife][15]
  、[bottomsheet][12]、[photoview][16]、[SmartRefreshLayout][14]、[BaseRecyclerViewAdapterHelper][17]
- 、[circleimageview][18]、[banner][19]、[loadsir][20]、[PhotoView][21] 、utilcode[22]等等。
+ 、[circleimageview][18]、[banner][19]、[loadsir][20]、[PhotoView][21] 、[utilcode][22]等等。
 
 
 ### Statement
+
+    感谢[网易云音乐App](https://play.google.com/store/apps/details?id=com.netease.cloudmusic)提供框架支持。
+
     感谢[MVPArms](https://github.com/JessYanCoding/MVPArms)提供框架支持。
 
     感谢[云阅App](https://github.com/youlookwhat/CloudReader)提供代码支持。
