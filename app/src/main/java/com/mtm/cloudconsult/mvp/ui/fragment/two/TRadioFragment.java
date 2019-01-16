@@ -202,6 +202,11 @@ public class TRadioFragment extends BaseRecyFragment<TRadioPresenter> implements
                                     changeContent(txName, "全部");
                                 }
                                 break;
+                            case R.id.gank_android:
+                                if (isOtherType("Android")) {
+                                    changeContent(txName, "Android");
+                                }
+                                break;
                             case R.id.gank_ios:
                                 if (isOtherType("IOS")) {
                                     changeContent(txName, "IOS");
