@@ -20,7 +20,7 @@ import com.mtm.cloudconsult.app.utils.DialogBuild;
 import com.mtm.cloudconsult.app.utils.GlideUtils;
 import com.mtm.cloudconsult.app.utils.PerfectClickListener;
 import com.mtm.cloudconsult.mvp.model.bean.AndroidBean;
-import com.mtm.cloudconsult.mvp.ui.activity.WebViewActivity;
+import com.mtm.cloudconsult.mvp.ui.activity.config.WebViewActivity;
 
 import java.util.List;
 

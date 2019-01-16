@@ -14,7 +14,7 @@ import com.cocosw.bottomsheet.BottomSheet;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.mtm.cloudconsult.R;
-import com.mtm.cloudconsult.app.adapter.GankAndroidAdapter;
+import com.mtm.cloudconsult.app.adapter.TRadioAdapter;
 import com.mtm.cloudconsult.app.base.BaseRecyFragment;
 import com.mtm.cloudconsult.app.utils.SPUtils;
 import com.mtm.cloudconsult.di.component.DaggerTRadioComponent;
@@ -45,7 +45,7 @@ public class TRadioFragment extends BaseRecyFragment<TRadioPresenter> implements
     private SmartRefreshLayout refreshLayout;
     private int currentPage = 1;
     private View mHeaderView;
-    private GankAndroidAdapter mGankAndroidAdapter;
+    private TRadioAdapter mGankAndroidAdapter;
     private BottomSheet.Builder builder = null;
     private boolean isLoadingMore = false;
 
@@ -82,7 +82,7 @@ public class TRadioFragment extends BaseRecyFragment<TRadioPresenter> implements
         recyclerView.setHasFixedSize(false);
         recyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mGankAndroidAdapter = new GankAndroidAdapter(R.layout.item_android, new ArrayList<>());
+        mGankAndroidAdapter = new TRadioAdapter(R.layout.item_tradio_android, new ArrayList<>());
         recyclerView.setAdapter(mGankAndroidAdapter);
         if (mHeaderView == null) {
             mHeaderView = View.inflate(getContext(), R.layout.header_item_gank_custom, null);

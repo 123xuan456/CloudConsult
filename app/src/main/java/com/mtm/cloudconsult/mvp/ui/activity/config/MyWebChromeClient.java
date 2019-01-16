@@ -10,7 +10,6 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 import com.mtm.cloudconsult.R;
-import com.mtm.cloudconsult.mvp.ui.activity.WebViewActivity;
 
 import static android.app.Activity.RESULT_OK;
 

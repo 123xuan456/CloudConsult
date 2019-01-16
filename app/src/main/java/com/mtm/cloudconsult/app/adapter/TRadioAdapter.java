@@ -13,7 +13,7 @@ import com.mtm.cloudconsult.R;
 import com.mtm.cloudconsult.app.utils.GlideUtils;
 import com.mtm.cloudconsult.app.utils.StringUtils;
 import com.mtm.cloudconsult.mvp.model.bean.GankIoDataBean;
-import com.mtm.cloudconsult.mvp.ui.activity.WebViewActivity;
+import com.mtm.cloudconsult.mvp.ui.activity.config.WebViewActivity;
 
 import java.util.List;
 
@@ -22,14 +22,14 @@ import java.util.List;
  *
  * @author QSX
  */
-public class GankAndroidAdapter extends BaseQuickAdapter<GankIoDataBean.ResultBean, BaseViewHolder> {
+public class TRadioAdapter extends BaseQuickAdapter<GankIoDataBean.ResultBean, BaseViewHolder> {
     private boolean isAll = false;
 
     public void setAllType(boolean isAll) {
         this.isAll = isAll;
     }
 
-    public GankAndroidAdapter(int layoutResId, @Nullable List<GankIoDataBean.ResultBean> data) {
+    public TRadioAdapter(int layoutResId, @Nullable List<GankIoDataBean.ResultBean> data) {
         super(layoutResId, data);
     }
 

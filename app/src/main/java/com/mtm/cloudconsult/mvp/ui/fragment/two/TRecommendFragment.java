@@ -27,7 +27,7 @@ import com.mtm.cloudconsult.mvp.contract.TRecommendContract;
 import com.mtm.cloudconsult.mvp.model.bean.AndroidBean;
 import com.mtm.cloudconsult.mvp.model.bean.FrontpageBean;
 import com.mtm.cloudconsult.mvp.presenter.TRecommendPresenter;
-import com.mtm.cloudconsult.mvp.ui.activity.WebViewActivity;
+import com.mtm.cloudconsult.mvp.ui.activity.config.WebViewActivity;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.youth.banner.Banner;

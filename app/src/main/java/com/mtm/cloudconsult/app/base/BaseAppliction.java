@@ -8,9 +8,11 @@ import android.os.StrictMode;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 
+import com.blankj.utilcode.util.Utils;
 import com.jess.arms.base.BaseApplication;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
+
 
 /**
  * Created by 绍轩 on 2019/1/5.
@@ -35,6 +37,8 @@ public class BaseAppliction extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         baseAppliction = this;
+        //初始化工具类
+        Utils.init(this);
         initTextSize();
         /**
          * 初始化热更新

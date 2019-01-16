@@ -1,4 +1,4 @@
-package com.mtm.cloudconsult.mvp.ui.activity;
+package com.mtm.cloudconsult.mvp.ui.activity.config;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -27,11 +27,6 @@ import com.mtm.cloudconsult.app.utils.BaseTools;
 import com.mtm.cloudconsult.app.utils.CheckNetwork;
 import com.mtm.cloudconsult.app.utils.ShareUtils;
 import com.mtm.cloudconsult.mvp.model.CollectModel;
-import com.mtm.cloudconsult.mvp.ui.activity.config.FullscreenHolder;
-import com.mtm.cloudconsult.mvp.ui.activity.config.IWebPageView;
-import com.mtm.cloudconsult.mvp.ui.activity.config.ImageClickInterface;
-import com.mtm.cloudconsult.mvp.ui.activity.config.MyWebChromeClient;
-import com.mtm.cloudconsult.mvp.ui.activity.config.MyWebViewClient;
 
 
 /**

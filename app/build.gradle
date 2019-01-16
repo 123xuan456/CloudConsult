@@ -4,7 +4,6 @@ apply plugin: 'com.android.application'
 //bugly热部署
 //apply from: 'tinker-support.gradle'
 
-
 //apply from: 'tinkerpatch.gradle'
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
@@ -92,6 +91,9 @@ dependencies {
     implementation rootProject.ext.dependencies["multidex"]
     implementation rootProject.ext.dependencies["loadsir"]
     implementation rootProject.ext.dependencies["bottomsheet"]
+    implementation rootProject.ext.dependencies["photoView"]
+    /*通用工具类 https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md*/
+    api  'com.blankj:utilcode:1.11.1'
 
 //    //bugly热部署
     implementation rootProject.ext.dependencies["bugly"]

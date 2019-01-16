@@ -9,7 +9,6 @@ import android.webkit.WebViewClient;
 
 import com.mtm.cloudconsult.app.utils.BaseTools;
 import com.mtm.cloudconsult.app.utils.CheckNetwork;
-import com.mtm.cloudconsult.mvp.ui.activity.WebViewActivity;
 
 
 /**

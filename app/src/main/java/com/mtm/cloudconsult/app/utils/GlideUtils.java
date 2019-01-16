@@ -1,11 +1,15 @@
 package com.mtm.cloudconsult.app.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -19,10 +23,13 @@ import com.bumptech.glide.request.target.Target;
 import com.mtm.cloudconsult.R;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by MTM on 2019/1/8.
  * 功能包括加载图片，圆形图片，圆角图片，指定圆角图片，模糊图片，灰度图片等等。
+ *
  * @author QSX
  */
 public class GlideUtils {
@@ -30,7 +37,7 @@ public class GlideUtils {
     /*
      *加载图片(默认)
      */
-    public static void loadImage(Context context, String url, ImageView imageView,int placeholder,int error) {
+    public static void loadImage(Context context, String url, ImageView imageView, int placeholder, int error) {
         RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .placeholder(placeholder) //占位图
@@ -51,7 +58,7 @@ public class GlideUtils {
      * @param width
      * @param height
      */
-    public static void loadImageSize(Context context, String url, ImageView imageView, int width, int height,int placeholder,int error) {
+    public static void loadImageSize(Context context, String url, ImageView imageView, int width, int height, int placeholder, int error) {
         RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .placeholder(placeholder) //占位图
@@ -74,7 +81,7 @@ public class GlideUtils {
      * DiskCacheStrategy.AUTOMATIC： 表示让Glide根据图片资源智能地选择使用哪一种缓存策略（默认选项）。
      */
 
-    public static void loadImageSizekipMemoryCache(Context context, String url, ImageView imageView,int placeholder,int error) {
+    public static void loadImageSizekipMemoryCache(Context context, String url, ImageView imageView, int placeholder, int error) {
         RequestOptions options = new RequestOptions()
                 .placeholder(placeholder) //占位图
                 .error(error)       //错误图S
@@ -88,7 +95,7 @@ public class GlideUtils {
     /**
      * 加载圆形图片
      */
-    public static void loadCircleImage(Context context, String url, ImageView imageView,int placeholder,int error) {
+    public static void loadCircleImage(Context context, String url, ImageView imageView, int placeholder, int error) {
         RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .circleCrop()//设置圆形
@@ -128,8 +135,6 @@ public class GlideUtils {
     }
 
 
-
-
     /**
      * Glide.with(this).asGif()    //强制指定加载动态图片
      * 如果加载的图片不是gif，则asGif()会报错， 当然，asGif()不写也是可以正常加载的。
@@ -140,7 +145,7 @@ public class GlideUtils {
      * @param url       例如：https://image.niwoxuexi.com/blog/content/5c0d4b1972-loading.gif
      * @param imageView
      */
-    private void loadGif(Context context, String url, ImageView imageView,int placeholder,int error) {
+    private void loadGif(Context context, String url, ImageView imageView, int placeholder, int error) {
         RequestOptions options = new RequestOptions()
                 .placeholder(placeholder)
                 .error(error);
@@ -161,6 +166,7 @@ public class GlideUtils {
                 .into(imageView);
 
     }
+
     /**
      * 显示随机的图片(每日推荐)
      *
@@ -180,6 +186,7 @@ public class GlideUtils {
                 .apply(options)
                 .into(imageView);
     }
+
     private static int getMusicDefaultPic(int imgNumber) {
         switch (imgNumber) {
             case 1:
@@ -203,23 +210,17 @@ public class GlideUtils {
     }
 
     public void downloadImage(final Context context, final String url) {
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    //String url = "http://www.guolin.tech/book.png";
                     FutureTarget<File> target = Glide.with(context)
                             .asFile()
                             .load(url)
                             .submit();
                     final File imageFile = target.get();
-                    Log.d("logcat", "下载好的图片文件路径="+imageFile.getPath());
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Toast.makeText(context, imageFile.getPath(), Toast.LENGTH_LONG).show();
-//                        }
-//                    });
+                    Log.d("logcat", "下载好的图片文件路径=" + imageFile.getPath());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -255,6 +256,7 @@ public class GlideUtils {
                 .apply(options)
                 .into(imageView);
     }
+
     private static int getDefaultPic(int type) {
         switch (type) {
             case 0:// 电影
@@ -271,4 +273,41 @@ public class GlideUtils {
         return R.drawable.img_default_meizi;
     }
 
+    /**
+     * 图片下载
+     */
+    public static void saveImageToGallery(Context context, Bitmap bmp, String title) {
+        // 首先保存图片
+        File appDir = new File(Environment.getExternalStorageDirectory(), AppUtils.getAppName());
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        if (appDir.exists()) {
+            String fileName = title.replace('/', '-') + ".jpg";
+            File file = new File(appDir, fileName);
+            if (file.exists()) {
+                ToastUtils.showShort("图片已存在");
+            } else {
+                try {
+                    FileOutputStream fos = new FileOutputStream(file);
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                    fos.flush();
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                // 其次把文件插入到系统图库
+//                try {
+//                    MediaStore.Images.Media.insertImage(context.getContentResolver(),
+//                            file.getAbsolutePath(), fileName, null);
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//                // 最后通知图库更新
+//                context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getAbsoluteFile())));
+                ToastUtils.showLong("已保存至"+ Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+ AppUtils.getAppName());
+            }
+        }
+//        String fileName = System.currentTimeMillis() + ".jpg";
+    }
 }
