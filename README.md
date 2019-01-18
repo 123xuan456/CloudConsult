@@ -18,7 +18,7 @@
 * 10、水波纹点击效果详细使用与适配。                                    
 * 11、基于BaseRecyclerViewAdapterHelper 快速使用
 * 12、``SwipeRefreshLayout``结合``RecyclerView``下拉刷新上拉加载。
-* 13、
+* 13、集成Tinker热部署，bugly实时监听崩溃日志
 * 14、
 * 15、
 * 16、

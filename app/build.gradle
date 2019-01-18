@@ -23,6 +23,10 @@ android {
         testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
         // 开启multidex
         multiDexEnabled true
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
 
 
@@ -70,7 +74,6 @@ android {
         abortOnError false
     }
 }
-
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //support
@@ -93,7 +96,7 @@ dependencies {
     implementation rootProject.ext.dependencies["bottomsheet"]
     implementation rootProject.ext.dependencies["photoView"]
     /*通用工具类 https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md*/
-    api  'com.blankj:utilcode:1.11.1'
+    api rootProject.ext.dependencies["utilcode"]
 
 //    //bugly热部署
     implementation rootProject.ext.dependencies["bugly"]
@@ -117,8 +120,9 @@ dependencies {
     //Github 仓库上最新的 Demo 具有下一个版本的新特性, 所以依赖最新的远程库会出现版本不兼容的情况, 详情请查看 https://github.com/JessYanCoding/MVPArms/wiki/Issues#2
     implementation 'me.jessyan:arms:2.4.1'
     //test
-    testImplementation rootProject.ext.dependencies["junit"]
-    debugImplementation rootProject.ext.dependencies["canary-debug"]
-    releaseImplementation rootProject.ext.dependencies["canary-release"]
-    testImplementation rootProject.ext.dependencies["canary-release"]
+//    testImplementation rootProject.ext.dependencies["junit"]
+//    debugImplementation rootProject.ext.dependencies["canary-debug"]
+//    releaseImplementation rootProject.ext.dependencies["canary-release"]
+//    testImplementation rootProject.ext.dependencies["canary-release"]
 }
+

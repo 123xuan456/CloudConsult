@@ -254,7 +254,7 @@ public class ViewBigImageActivity extends AppCompatActivity implements ViewPager
                     .listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            ArmsUtils.snackbarText("资源加载异常");
+                            ArmsUtils.snackbarText("图片加载异常");
                             spinner.setVisibility(View.GONE);
                             return false;
                         }

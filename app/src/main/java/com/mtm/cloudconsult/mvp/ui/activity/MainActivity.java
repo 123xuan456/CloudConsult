@@ -202,7 +202,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             actionBar.setDisplayShowTitleEnabled(false);
         }
         //默认显示第二页
-        setCurrentItem(1);
+        setCurrentItem(0);
     }
     /**
      * 切换页面

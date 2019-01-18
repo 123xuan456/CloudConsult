@@ -16,10 +16,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
 import com.mtm.cloudconsult.R;
 
 import java.io.File;
@@ -38,12 +40,16 @@ public class GlideUtils {
      *加载图片(默认)
      */
     public static void loadImage(Context context, String url, ImageView imageView, int placeholder, int error) {
+        DrawableTransitionOptions transitionOptions = new DrawableTransitionOptions()
+                .crossFade();
         RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .placeholder(placeholder) //占位图
                 .error(error)       //错误图
                 .diskCacheStrategy(DiskCacheStrategy.ALL);
-        Glide.with(context).load(url).apply(options).into(imageView);
+        Glide.with(context).load(url).apply(options)
+                .transition(transitionOptions)//过渡动画
+                .into(imageView);
 
     }
 
@@ -74,7 +80,7 @@ public class GlideUtils {
      * 禁用内存缓存功能
      * diskCacheStrategy()方法基本上就是Glide硬盘缓存功能的一切，它可以接收五种参数：
      * <p>
-     * DiskCacheStrategy.NONE： 表示不缓存任何内容。
+     * DiskCacheStrategy.NONE： 表示不eee缓存任何内容。
      * DiskCacheStrategy.DATA： 表示只缓存原始图片。
      * DiskCacheStrategy.RESOURCE： 表示只缓存转换过后的图片。
      * DiskCacheStrategy.ALL ： 表示既缓存原始图片，也缓存转换过后的图片。
@@ -175,16 +181,8 @@ public class GlideUtils {
      * @param imageView 对应图片控件
      */
     public static void displayRandom(int imgNumber, String imageUrl, ImageView imageView) {
+        loadImage(imageView.getContext(),imageUrl,imageView,getMusicDefaultPic(imgNumber),getMusicDefaultPic(imgNumber));
 
-        RequestOptions options = new RequestOptions()
-                .transforms(new CenterCrop(), new RoundedCorners(5))
-                .error(getMusicDefaultPic(imgNumber))
-                .placeholder(getMusicDefaultPic(imgNumber));
-
-        Glide.with(imageView.getContext())
-                .load(imageUrl)
-                .apply(options)
-                .into(imageView);
     }
 
     private static int getMusicDefaultPic(int imgNumber) {
@@ -248,13 +246,7 @@ public class GlideUtils {
      * 默认图区别
      */
     public static void displayEspImage(String url, ImageView imageView, int type) {
-        RequestOptions options = new RequestOptions()
-                .placeholder(getDefaultPic(type))
-                .error(getDefaultPic(type));
-        Glide.with(imageView.getContext())
-                .load(url)
-                .apply(options)
-                .into(imageView);
+        loadImage(imageView.getContext(),url,imageView,getDefaultPic(type),getDefaultPic(type));
     }
 
     private static int getDefaultPic(int type) {
