@@ -21,12 +21,8 @@ public class CloudConstant {
     // 是否第一次收藏网址
     public static String IS_FIRST_COLLECTURL = "isFirstCollectUrl";
 
-
-
-
-
-
-
+    public static final String WECHAT_KEY = "4d180a8abece50b0ab967050205fd6bc";
+    public static final String MOVIE_KEY = "0b2bdeda43b5688921839c8ecb20399b";
     public class LoadSir {
         //成功
         public static final int SUCCESS = 1001;
@@ -42,6 +38,14 @@ public class CloudConstant {
         public static final int NO_NETWORK = 1006;
     }
 
-
+    /*Movie*/
+    public static final int  MOVIE_LIST_DEFAULT = 1401; //列表
+    public static final int MOVIE_PHOTOS_LIST = 1402;
+    public static final int MOVIE_COMMENT_DEFAULT = 1403;
+    public static final int MOVIE_COMMENT_REVIEW = 1404;
+    public static final int MOVIE_LIST_US_BOX = 1405;
+    public static final int MOVIE_LIST_SEARCH_TAG = 1406;
+    public static final int MOVIE_LIST_SEARCH_QUERY = 1407;
+    public static final int MOVIE_SEARCH_TYPE = 1408;
 
 }

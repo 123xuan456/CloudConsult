@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
     <uses-permission
         android:name="android.permission.READ_LOGS"
         tools:ignore="ProtectedPermissions" />
@@ -40,6 +39,7 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -47,9 +47,9 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
-        <!-- bugly 更新配置 end-->
+        <!-- bugly 更新配置 end -->
 
         <activity
             android:name=".mvp.ui.activity.config.WebViewActivity"
@@ -70,6 +70,9 @@
         <activity
             android:name=".mvp.ui.activity.ViewBigImageActivity"
             android:theme="@style/ViewBigPicTheme" />
+        <activity
+            android:name=".mvp.ui.activity.MovieDetailActivity"
+            android:theme="@style/MyScrollPage" />
     </application>
 
 </manifest>

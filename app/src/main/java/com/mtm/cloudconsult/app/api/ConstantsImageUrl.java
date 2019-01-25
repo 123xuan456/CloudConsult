@@ -19,7 +19,7 @@ public class ConstantsImageUrl {
     /**
      * 2张图的随机图
      */
-    private static final String HOME_TWO_01 = "https://upload-images.jianshu.io/upload_images/1354448-3d85a8d73f6e2b29.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240";
+    public static final String HOME_TWO_01 = "https://upload-images.jianshu.io/upload_images/1354448-3d85a8d73f6e2b29.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240";
     private static final String HOME_TWO_02 = "https://upload-images.jianshu.io/upload_images/1354448-5ee3ecf1d0eebd3e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240";
     private static final String HOME_TWO_03 = "https://upload-images.jianshu.io/upload_images/1354448-aa3a53d354bb7431.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240";
     private static final String HOME_TWO_04 = "https://upload-images.jianshu.io/upload_images/1354448-68ed2f625e6fe883.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240";

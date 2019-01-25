@@ -17,22 +17,17 @@ import com.mtm.cloudconsult.R;
 import com.mtm.cloudconsult.app.api.CloudConstant;
 import com.mtm.cloudconsult.app.callback.ErrorCallback;
 import com.mtm.cloudconsult.app.callback.LoadingCallback;
-import com.mtm.cloudconsult.mvp.contract.BaseRecyIView;
 
 /**
  * Created by MTM on 2019/1/14.
  *
  * @author QSX
  */
-public abstract class BaseRecyFragment<P extends IPresenter> extends BaseFragment<P> implements BaseRecyIView{
+public abstract class BaseUiFragment<P extends IPresenter> extends BaseFragment<P> implements BaseUiView {
 
 
     private LinearLayout mLlContent;
     private LoadService loadService;
-    @Override
-    public int getContentViewId() {
-        return R.layout.fragment_base_recy;
-    }
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_base_ui, container, false);
@@ -55,6 +50,7 @@ public abstract class BaseRecyFragment<P extends IPresenter> extends BaseFragmen
     public View getLoadView() {
         return mLlContent;
     }
+
 
     @Override
     public void showLoadSirView(int status) {

@@ -95,6 +95,10 @@ dependencies {
     implementation rootProject.ext.dependencies["loadsir"]
     implementation rootProject.ext.dependencies["bottomsheet"]
     implementation rootProject.ext.dependencies["photoView"]
+    /**
+     * 动画大全
+     */
+    implementation rootProject.ext.dependencies["nineoldandroids"]
     /*通用工具类 https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md*/
     api rootProject.ext.dependencies["utilcode"]
 

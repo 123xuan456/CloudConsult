@@ -15,7 +15,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.mtm.cloudconsult.R;
 import com.mtm.cloudconsult.app.adapter.TRadioAdapter;
-import com.mtm.cloudconsult.app.base.BaseRecyFragment;
+import com.mtm.cloudconsult.app.base.BaseUiFragment;
 import com.mtm.cloudconsult.app.utils.SPUtils;
 import com.mtm.cloudconsult.di.component.DaggerTRadioComponent;
 import com.mtm.cloudconsult.di.module.TRadioModule;
@@ -38,7 +38,7 @@ import static com.mtm.cloudconsult.app.api.CloudConstant.GANK_CALA;
 /**
  * 电台模块
  */
-public class TRadioFragment extends BaseRecyFragment<TRadioPresenter> implements TRadioContract.View, OnLoadMoreListener, OnRefreshListener {
+public class TRadioFragment extends BaseUiFragment<TRadioPresenter> implements TRadioContract.View, OnLoadMoreListener, OnRefreshListener {
 
 
     private RecyclerView recyclerView;

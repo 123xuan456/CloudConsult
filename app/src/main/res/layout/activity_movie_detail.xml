@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_base_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tb_base_title"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorTransparent" />
+
+        <ImageView
+            android:id="@+id/iv_base_titlebar_bg"
+            android:layout_width="match_parent"
+            android:layout_height="310dp"
+            android:layout_marginTop="-45dp"
+            android:scaleType="fitXY" />
+    </RelativeLayout>
+
+    <com.mtm.cloudconsult.app.view.MyNestedScrollView
+        android:id="@+id/sl_base"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/include_header_slide" />
+
+        </LinearLayout>
+
+    </com.mtm.cloudconsult.app.view.MyNestedScrollView>
+</LinearLayout>

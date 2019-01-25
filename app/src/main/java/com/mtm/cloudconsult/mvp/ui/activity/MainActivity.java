@@ -107,6 +107,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         RetrofitUrlManager.getInstance().putDomain(Api.FIR_DOMAIN_NAME, Api.API_FIR);
         RetrofitUrlManager.getInstance().putDomain(Api.WAN_ANDROID_DOMAIN_NAME, Api.API_WAN_ANDROID);
         RetrofitUrlManager.getInstance().putDomain(Api.QSBK_DOMAIN_NAME, Api.API_QSBK);
+        RetrofitUrlManager.getInstance().putDomain(Api.BIZHI_DOMAIN_NAME, Api.API_BIZHI);
+        RetrofitUrlManager.getInstance().putDomain(Api.WECHAT_DOMAIN_NAME, Api.API_WECHAT);
+        RetrofitUrlManager.getInstance().putDomain(Api.GAMER_DOMAIN_NAME, Api.API_GAMER);
 
         LoadSir.beginBuilder()
                 .addCallback(new ErrorCallback())
@@ -202,7 +205,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             actionBar.setDisplayShowTitleEnabled(false);
         }
         //默认显示第二页
-        setCurrentItem(0);
+        setCurrentItem(1);
     }
     /**
      * 切换页面

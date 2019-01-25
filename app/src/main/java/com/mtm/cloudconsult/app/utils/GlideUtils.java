@@ -9,11 +9,13 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -21,7 +23,10 @@ import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
+import com.jess.arms.base.App;
+import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.http.imageloader.ImageLoader;
+import com.jess.arms.http.imageloader.glide.ImageConfigImpl;
 import com.mtm.cloudconsult.R;
 
 import java.io.File;
@@ -50,7 +55,21 @@ public class GlideUtils {
         Glide.with(context).load(url).apply(options)
                 .transition(transitionOptions)//过渡动画
                 .into(imageView);
-
+    }
+    /*
+     *加载电影图片(默认)
+     */
+    public static void loadMovieImage(Context context, String url, ImageView imageView) {
+        DrawableTransitionOptions transitionOptions = new DrawableTransitionOptions()
+                .crossFade();
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.drawable.img_default_movie) //占位图
+                .error(R.drawable.img_default_movie)       //错误图
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(context).load(url).apply(options)
+                .transition(transitionOptions)//过渡动画
+                .into(imageView);
     }
 
     /**
@@ -94,9 +113,38 @@ public class GlideUtils {
                 .skipMemoryCache(true)//禁用掉Glide的内存缓存功能
                 .diskCacheStrategy(DiskCacheStrategy.ALL);
         Glide.with(context).load(url).apply(options).into(imageView);
-
     }
 
+    /**
+     * @param context
+     * @param imageView
+     * @param url                  路径
+     * @param placeholder          默认图片
+     * @param errorPic             错误图片
+     * @param bitmapTransformation 高斯模糊
+     */
+    public static void loadTransformationImage(Context context, ImageView imageView, String url, int placeholder, int errorPic, BitmapTransformation bitmapTransformation) {
+        AppComponent mAppComponent = ((App) context.getApplicationContext()).getAppComponent();
+        ImageLoader mImageLoader = mAppComponent.imageLoader();
+
+        ImageConfigImpl.Builder builder = ImageConfigImpl.builder();
+        builder.url(url);
+        builder.imageView(imageView);
+        //判断网络是否为4G，4G网络不加载网络图片
+        if (NetworkUtils.isMobileData()) {
+            builder.cacheStrategy(5);
+        }
+        if (bitmapTransformation != null) {
+            builder.transformation(bitmapTransformation);
+        }
+        if (placeholder != 0) {
+            builder.placeholder(placeholder);
+        }
+        if (errorPic != 0) {
+            builder.errorPic(errorPic);
+        }
+        mImageLoader.loadImage(context, builder.build());
+    }
 
     /**
      * 加载圆形图片
@@ -181,7 +229,7 @@ public class GlideUtils {
      * @param imageView 对应图片控件
      */
     public static void displayRandom(int imgNumber, String imageUrl, ImageView imageView) {
-        loadImage(imageView.getContext(),imageUrl,imageView,getMusicDefaultPic(imgNumber),getMusicDefaultPic(imgNumber));
+        loadImage(imageView.getContext(), imageUrl, imageView, getMusicDefaultPic(imgNumber), getMusicDefaultPic(imgNumber));
 
     }
 
@@ -246,7 +294,7 @@ public class GlideUtils {
      * 默认图区别
      */
     public static void displayEspImage(String url, ImageView imageView, int type) {
-        loadImage(imageView.getContext(),url,imageView,getDefaultPic(type),getDefaultPic(type));
+        loadImage(imageView.getContext(), url, imageView, getDefaultPic(type), getDefaultPic(type));
     }
 
     private static int getDefaultPic(int type) {
@@ -297,7 +345,7 @@ public class GlideUtils {
 //                }
 //                // 最后通知图库更新
 //                context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getAbsoluteFile())));
-                ToastUtils.showLong("已保存至"+ Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+ AppUtils.getAppName());
+                ToastUtils.showLong("已保存至" + Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + AppUtils.getAppName());
             }
         }
 //        String fileName = System.currentTimeMillis() + ".jpg";

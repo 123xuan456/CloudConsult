@@ -4,12 +4,19 @@ import com.mtm.cloudconsult.mvp.model.bean.FrontpageBean;
 import com.mtm.cloudconsult.mvp.model.bean.GankIoDataBean;
 import com.mtm.cloudconsult.mvp.model.bean.GankIoDayBean;
 import com.mtm.cloudconsult.mvp.model.bean.WanAndroidBannerBean;
+import com.mtm.cloudconsult.mvp.model.bean.movie.MovieBean;
+import com.mtm.cloudconsult.mvp.model.bean.movie.MovieCelebrity;
+import com.mtm.cloudconsult.mvp.model.bean.movie.MovieHttpRequest;
+import com.mtm.cloudconsult.mvp.model.bean.movie.MoviePhotoRequest;
+import com.mtm.cloudconsult.mvp.model.bean.movie.MovieUsBoxRequest;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
+import static com.mtm.cloudconsult.app.api.Api.DOUBAN_DOMAIN_NAME;
 import static com.mtm.cloudconsult.app.api.Api.GANK_DOMAIN_NAME;
 import static com.mtm.cloudconsult.app.api.Api.TING_DOMAIN_NAME;
 import static me.jessyan.retrofiturlmanager.RetrofitUrlManager.DOMAIN_NAME_HEADER;
@@ -52,4 +59,98 @@ public interface CommonService {
     @Headers({DOMAIN_NAME_HEADER + GANK_DOMAIN_NAME})
     @GET("/api/day/{year}/{month}/{day}")
     Observable<GankIoDayBean> getGankIoDay(@Path("year") String year, @Path("month") String month, @Path("day") String day);
+
+
+
+    /**
+     * 正在上映
+     *https://api.douban.com/v2/movie/in_theaters?apikey=0b2bdeda43b5688921839c8ecb20399b&city=%E5%8C%97%E4%BA%AC&start=0&count=100&client=somemessage&udid=dddddddddddddddddddddd
+     * @param apikey 固定值 0b2bdeda43b5688921839c8ecb20399b
+     * @param city 城市名称 上海/北京
+     * @param start 分页使用，表示第几页
+     * @param count 分页使用，表示数量
+     * @return
+     */
+    @Headers({DOMAIN_NAME_HEADER+ DOUBAN_DOMAIN_NAME})
+    @GET("/v2/movie/{type}")
+    Observable<MovieHttpRequest> getHotPlayMovies(@Path("type") String type, @Query("apikey") String apikey, @Query("city") String city, @Query("start") int start, @Query("count") int count);
+
+    /**
+     * 口碑榜
+     *https://api.douban.com/v2/movie/in_theaters?apikey=0b2bdeda43b5688921839c8ecb20399b&city=%E5%8C%97%E4%BA%AC&start=0&count=100&client=somemessage&udid=dddddddddddddddddddddd
+     * @param apikey 固定值 0b2bdeda43b5688921839c8ecb20399b
+     * @return
+     */
+    @Headers({DOMAIN_NAME_HEADER+ DOUBAN_DOMAIN_NAME})
+    @GET("/v2/movie/weekly")
+    Observable<MovieHttpRequest> getWeekly(@Query("apikey") String apikey);
+
+    /**
+     * 北美票房榜
+     *https://api.douban.com/v2/movie/in_theaters?apikey=0b2bdeda43b5688921839c8ecb20399b&city=%E5%8C%97%E4%BA%AC&start=0&count=100&client=somemessage&udid=dddddddddddddddddddddd
+     * @param apikey 固定值 0b2bdeda43b5688921839c8ecb20399b
+     * @return
+     */
+    @Headers({DOMAIN_NAME_HEADER+ DOUBAN_DOMAIN_NAME})
+    @GET("/v2/movie/{type}")
+    Observable<MovieUsBoxRequest> getUsBox(@Path("type") String type, @Query("apikey") String apikey);
+
+    /**
+     * Top250
+     *https://api.douban.com/v2/movie/in_theaters?apikey=0b2bdeda43b5688921839c8ecb20399b&city=%E5%8C%97%E4%BA%AC&start=0&count=100&client=somemessage&udid=dddddddddddddddddddddd
+     * @param apikey 固定值 0b2bdeda43b5688921839c8ecb20399b
+     * @param start 分页使用，表示第几页
+     * @param count 分页使用，表示数量
+     * @return
+     */
+    @Headers({DOMAIN_NAME_HEADER+ DOUBAN_DOMAIN_NAME})
+    @GET("/v2/movie/top250")
+    Observable<MovieHttpRequest> getTop250(@Query("apikey") String apikey, @Query("start") int start, @Query("count") int count);
+
+
+    /**
+     *http://api.douban.com/v2/movie/subject/26865690?apikey=0b2bdeda43b5688921839c8ecb20399b&city=%E5%8C%97%E4%BA%AC&client=something&udid=dddddddddddddddddddddd
+     * @param apikey 固定值 0b2bdeda43b5688921839c8ecb20399b
+     * @param city 城市名称 上海/北京
+     * @return
+     */
+    @Headers({DOMAIN_NAME_HEADER+ DOUBAN_DOMAIN_NAME})
+    @GET("/v2/movie/subject/{subjectId}")
+    Observable<MovieBean> getMovieDetail(@Path("subjectId")String subjectId, @Query("apikey") String apikey, @Query("city") String city);
+
+    /**
+     * 电影剧照
+     *https://api.douban.com//v2/movie/celebrity/1054395?apikey=0b2bdeda43b5688921839c8ecb20399b
+     * @param apikey 固定值 0b2bdeda43b5688921839c8ecb20399b
+     * @return
+     */
+    @Headers({DOMAIN_NAME_HEADER+ DOUBAN_DOMAIN_NAME})
+    @GET("/v2/movie/subject/{Id}/{type}")
+    Observable<MoviePhotoRequest> getMoviePhotos(@Path("Id")String id, @Path("type")String type, @Query("apikey") String apikey, @Query("start") int start, @Query("count") int count);
+
+    /**
+     * 获取影人信息
+     *https://api.douban.com//v2/movie/celebrity/1054395?apikey=0b2bdeda43b5688921839c8ecb20399b
+     * @param apikey 固定值 0b2bdeda43b5688921839c8ecb20399b
+     * @return
+     */
+    @Headers({DOMAIN_NAME_HEADER+ DOUBAN_DOMAIN_NAME})
+    @GET("/v2/movie/celebrity/{Id}")
+    Observable<MovieCelebrity> getCelebrity(@Path("Id")String id, @Query("apikey") String apikey);
+
+    /**
+     * 电影搜索
+     *https://api.douban.com//v2/movie/celebrity/1054395?apikey=0b2bdeda43b5688921839c8ecb20399b
+     * @param apikey 固定值 0b2bdeda43b5688921839c8ecb20399b
+     * @return
+     */
+    @Headers({DOMAIN_NAME_HEADER+ DOUBAN_DOMAIN_NAME})
+    @GET("/v2/movie/search")
+    Observable<MovieHttpRequest> getMovieSearch(@Query("tag")String tag, @Query("q")String q, @Query("apikey") String apikey, @Query("start") int start, @Query("count") int count);
+
+
+
+
+
+
 }

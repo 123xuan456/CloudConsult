@@ -13,7 +13,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.mtm.cloudconsult.R;
 import com.mtm.cloudconsult.app.adapter.TFriendAdapter;
-import com.mtm.cloudconsult.app.base.BaseRecyFragment;
+import com.mtm.cloudconsult.app.base.BaseUiFragment;
 import com.mtm.cloudconsult.di.component.DaggerTFriendComponent;
 import com.mtm.cloudconsult.di.module.TFriendModule;
 import com.mtm.cloudconsult.mvp.contract.TFriendContract;
@@ -33,7 +33,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
 /**
  * 朋友页面
  */
-public class TFriendFragment extends BaseRecyFragment<TFriendPresenter> implements TFriendContract.View , OnLoadMoreListener, OnRefreshListener {
+public class TFriendFragment extends BaseUiFragment<TFriendPresenter> implements TFriendContract.View , OnLoadMoreListener, OnRefreshListener {
     private RecyclerView recyclerView;
     private SmartRefreshLayout refreshLayout;
     private int currentPage = 1;
