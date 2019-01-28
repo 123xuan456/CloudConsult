@@ -1,30 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/rl_base_titlebar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/tb_base_title"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorTransparent" />
-
-        <ImageView
-            android:id="@+id/iv_base_titlebar_bg"
-            android:layout_width="match_parent"
-            android:layout_height="310dp"
-            android:layout_marginTop="-45dp"
-            android:scaleType="fitXY" />
-    </RelativeLayout>
 
     <com.mtm.cloudconsult.app.view.MyNestedScrollView
         android:id="@+id/sl_base"
@@ -38,7 +18,51 @@
 
             <include layout="@layout/include_header_slide" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:text="@string/action_share" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:text="@string/action_share" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:text="@string/action_share" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:text="@string/action_share" />
+
+
         </LinearLayout>
 
     </com.mtm.cloudconsult.app.view.MyNestedScrollView>
-</LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_base_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
+        <ImageView
+            android:id="@+id/iv_base_titlebar_bg"
+            android:layout_width="match_parent"
+            android:layout_height="310dp"
+            android:scaleType="fitXY" />
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tb_base_title"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorTransparent"
+            app:contentInsetStart="0.0dp"
+            app:layout_collapseMode="pin"
+            app:layout_scrollFlags="enterAlways|scroll"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ToolbarStyle"/>
+
+
+    </RelativeLayout>
+
+</FrameLayout>

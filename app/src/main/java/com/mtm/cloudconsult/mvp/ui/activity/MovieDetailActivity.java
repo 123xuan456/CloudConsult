@@ -3,6 +3,7 @@ package com.mtm.cloudconsult.mvp.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,13 +23,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ImageUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.mtm.cloudconsult.R;
 import com.mtm.cloudconsult.app.utils.GlideUtils;
+import com.mtm.cloudconsult.app.utils.StringUtils;
 import com.mtm.cloudconsult.app.view.MyNestedScrollView;
 import com.mtm.cloudconsult.app.view.statusbar.StatusBarUtil;
 import com.mtm.cloudconsult.di.component.DaggerMovieDetailComponent;
@@ -43,7 +52,9 @@ import butterknife.ButterKnife;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
-
+/**
+ * 豆瓣电影详情页面
+ */
 public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> implements MovieDetailContract.View {
 
     @BindView(R.id.iv_base_titlebar_bg)
@@ -100,12 +111,23 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
     public void initData(@Nullable Bundle savedInstanceState) {
         if (getIntent() != null) {
             movieBean = (MovieBean) getIntent().getSerializableExtra("bean");
+            //高斯模糊
+            GlideUtils.loadTransformationImage(MovieDetailActivity.this, imgItemBg, movieBean.getImages().getMedium(), 95);
         }
-        setToolBar();
+        tvOneRatingRate.setText("评分:" + movieBean.getRating().getAverage());
+        tvOneRatingNumber.setText(movieBean.getCollect_count() + "人评分");
+        tvOneDirectors.setText(StringUtils.formatName(movieBean.getDirectors()));
+        tvOneCasts.setText(StringUtils.formatName(movieBean.getCasts()));
+        tvOneGenres.setText("类型:" + StringUtils.formatGenres(movieBean.getGenres()));
+        tvOneDay.setText("上映日期：" + movieBean.getYear());
+        tvOneCity.setText("制片国家/地区：" + StringUtils.formatGenres(movieBean.getCountries()));
+
         initSlideShapeTheme(movieBean.getImages().getMedium(), imgItemBg);
-        GlideUtils.loadMovieImage(this,movieBean.getImages().getLarge(),ivOnePhoto);
-        tbBaseTitle.setTitle("Test");//标题
-        tbBaseTitle.setSubtitle(String.format("主演：%s", "张三"));//副标题
+        setToolBar();
+        GlideUtils.loadMovieImage(this, movieBean.getImages().getLarge(), ivOnePhoto);
+        tbBaseTitle.setTitle(movieBean.getTitle());//标题
+        tbBaseTitle.setSubtitle(String.format("主演：%s", StringUtils.formatName(movieBean.getCasts())));//副标题
+
     }
 
     /**
@@ -156,8 +178,8 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
             actionBar.setHomeAsUpIndicator(R.drawable.icon_back);
         }
         // 手动设置才有效果
-//        tbBaseTitle.setTitleTextAppearance(this, R.style.ToolBar_Title);
-//        tbBaseTitle.setSubtitleTextAppearance(this, R.style.Toolbar_SubTitle);
+        tbBaseTitle.setTitleTextAppearance(this, R.style.ToolBar_Title);
+        tbBaseTitle.setSubtitleTextAppearance(this, R.style.Toolbar_SubTitle);
         tbBaseTitle.setOverflowIcon(ContextCompat.getDrawable(this, R.drawable.actionbar_more));
         tbBaseTitle.setNavigationOnClickListener(v -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -167,7 +189,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
             }
         });
 
-        
+
     }
 
     /**
@@ -176,22 +198,47 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
     private void setImgHeaderBg(String imgUrl) {
         if (!TextUtils.isEmpty(imgUrl)) {
             //高斯模糊
-            GlideUtils.loadTransformationImage(MovieDetailActivity.this, imgItemBg, imgUrl, 0, 0, new BitmapTransformation() {
-                @Override
-                public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
-                }
+            Glide.with(MovieDetailActivity.this)
+                    .load(imgUrl)
+                    .apply(new RequestOptions()
+                            //占位图
+                            .placeholder(R.drawable.stackblur_default)
+                            //高斯模糊值
+                            .transform(new BitmapTransformation() {
+                                @Override
+                                public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+                                }
 
-                @Override
-                protected Bitmap transform(@NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int outHeight) {
-                    return ImageUtils.fastBlur(toTransform, 0.4f, 25);
-                }
-            });
+                                @Override
+                                protected Bitmap transform(@NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int outHeight) {
+                                    return ImageUtils.fastBlur(toTransform, 0.4f, 25);
+                                }
+                            }))
+                    //加载监听
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            tbBaseTitle.setBackgroundColor(Color.TRANSPARENT);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                ivBaseTitlebarBg.setImageAlpha(0);
+                            }
+                            ivBaseTitlebarBg.setVisibility(View.VISIBLE);
+                            return false;
+                        }
+                    }).into(ivBaseTitlebarBg);
+
+
         }
     }
 
     private void initScrollViewListener() {
         // 为了兼容23以下
-        slBase.setOnScrollChangeListener(new MyNestedScrollView.ScrollInterface(){
+        slBase.setOnScrollChangeListener(new MyNestedScrollView.ScrollInterface() {
             @Override
             public void onScrollChange(int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 scrollChangeHeader(scrollY);
@@ -200,10 +247,11 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
     }
 
     private void initNewSlidingParams() {
-        int titleBarAndStatusHeight = (int) (ArmsUtils.getDimens(this,R.dimen.nav_bar_height) + StatusBarUtil.getStatusBarHeight(this));
+        int titleBarAndStatusHeight = (int) (ArmsUtils.getDimens(this, R.dimen.nav_bar_height) + StatusBarUtil.getStatusBarHeight(this));
         // 减掉后，没到顶部就不透明了
-        slidingDistance = imageBgHeight - titleBarAndStatusHeight - (int) (ArmsUtils.getDimens(this,R.dimen.base_header_activity_slide_more));
+        slidingDistance = imageBgHeight - titleBarAndStatusHeight - (int) (ArmsUtils.getDimens(this, R.dimen.base_header_activity_slide_more));
     }
+
     /**
      * 根据页面滑动距离改变Header方法
      */
@@ -272,7 +320,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         intent.putExtra("bean", positionData);
         ActivityOptionsCompat options =
                 ActivityOptionsCompat.makeSceneTransitionAnimation(context,
-                        imageView, ArmsUtils.getString(context,R.string.transition_movie_img));//与xml文件对应
+                        imageView, ArmsUtils.getString(context, R.string.transition_movie_img));//与xml文件对应
         ActivityCompat.startActivity(context, intent, options.toBundle());
     }
 

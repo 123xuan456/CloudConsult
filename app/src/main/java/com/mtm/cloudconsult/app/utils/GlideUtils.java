@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -56,20 +55,13 @@ public class GlideUtils {
                 .transition(transitionOptions)//过渡动画
                 .into(imageView);
     }
+
     /*
      *加载电影图片(默认)
      */
     public static void loadMovieImage(Context context, String url, ImageView imageView) {
-        DrawableTransitionOptions transitionOptions = new DrawableTransitionOptions()
-                .crossFade();
-        RequestOptions options = new RequestOptions()
-                .centerCrop()
-                .placeholder(R.drawable.img_default_movie) //占位图
-                .error(R.drawable.img_default_movie)       //错误图
-                .diskCacheStrategy(DiskCacheStrategy.ALL);
-        Glide.with(context).load(url).apply(options)
-                .transition(transitionOptions)//过渡动画
-                .into(imageView);
+        loadImage(context, url, imageView, R.drawable.img_default_movie, R.drawable.img_default_movie);
+
     }
 
     /**
@@ -119,32 +111,24 @@ public class GlideUtils {
      * @param context
      * @param imageView
      * @param url                  路径
-     * @param placeholder          默认图片
-     * @param errorPic             错误图片
      * @param bitmapTransformation 高斯模糊
      */
-    public static void loadTransformationImage(Context context, ImageView imageView, String url, int placeholder, int errorPic, BitmapTransformation bitmapTransformation) {
+    public static void loadTransformationImage(Context context, ImageView imageView, String url, int bitmapTransformation) {
         AppComponent mAppComponent = ((App) context.getApplicationContext()).getAppComponent();
         ImageLoader mImageLoader = mAppComponent.imageLoader();
-
         ImageConfigImpl.Builder builder = ImageConfigImpl.builder();
         builder.url(url);
+        builder.blurValue(bitmapTransformation);//设置高斯模糊值
+        builder.isCrossFade(true);//开启淡入效果
         builder.imageView(imageView);
         //判断网络是否为4G，4G网络不加载网络图片
         if (NetworkUtils.isMobileData()) {
-            builder.cacheStrategy(5);
+            builder.cacheStrategy(2);
         }
-        if (bitmapTransformation != null) {
-            builder.transformation(bitmapTransformation);
-        }
-        if (placeholder != 0) {
-            builder.placeholder(placeholder);
-        }
-        if (errorPic != 0) {
-            builder.errorPic(errorPic);
-        }
+        builder.placeholder(R.drawable.stackblur_default);
         mImageLoader.loadImage(context, builder.build());
     }
+
 
     /**
      * 加载圆形图片
