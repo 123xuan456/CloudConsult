@@ -18,22 +18,12 @@
 
             <include layout="@layout/include_header_slide" />
 
-            <TextView
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:text="@string/action_share" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:text="@string/action_share" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:text="@string/action_share" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:text="@string/action_share" />
+                android:layout_height="wrap_content"
+                android:fadingEdge="none"
+                />
 
 
         </LinearLayout>

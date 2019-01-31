@@ -41,10 +41,17 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "boolean", "LOG_DEBUG", "true"
-            buildConfigField "boolean", "USE_CANARY", "true"
-            minifyEnabled false
+//            buildConfigField "boolean", "LOG_DEBUG", "true"
+//            buildConfigField "boolean", "USE_CANARY", "true"
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField "boolean", "USE_CANARY", "false"
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
         }
 
         release {
@@ -101,6 +108,8 @@ dependencies {
     implementation rootProject.ext.dependencies["nineoldandroids"]
     /*通用工具类 https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md*/
     api rootProject.ext.dependencies["utilcode"]
+    /*评分组件 https://github.com/DreaminginCodeZH/MaterialRatingBar*/
+    api 'me.zhanghai.android.materialratingbar:library:1.2.0'
 
 //    //bugly热部署
     implementation rootProject.ext.dependencies["bugly"]
@@ -129,4 +138,3 @@ dependencies {
 //    releaseImplementation rootProject.ext.dependencies["canary-release"]
 //    testImplementation rootProject.ext.dependencies["canary-release"]
 }
-

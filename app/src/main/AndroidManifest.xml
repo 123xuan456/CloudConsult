@@ -71,8 +71,11 @@
             android:name=".mvp.ui.activity.ViewBigImageActivity"
             android:theme="@style/ViewBigPicTheme" />
         <activity
-            android:name=".mvp.ui.activity.MovieDetailActivity"
+            android:name=".mvp.ui.activity.movie.MovieDetailActivity"
             android:theme="@style/MyScrollPage" />
+        <activity android:name=".mvp.ui.activity.movie.MovieFragmentActivity"
+            />
+        <activity android:name=".mvp.ui.activity.movie.MovieCelebrityActivity" />
     </application>
 
 </manifest>

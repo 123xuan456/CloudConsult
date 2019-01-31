@@ -29,7 +29,6 @@ import com.jess.arms.http.log.FormatPrinter;
 import com.jess.arms.http.log.RequestInterceptor;
 import com.jess.arms.integration.ConfigModule;
 import com.mtm.cloudconsult.BuildConfig;
-import com.mtm.cloudconsult.app.api.Api;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -64,7 +63,7 @@ public final class GlobalConfiguration implements ConfigModule {
         }
         //想支持多 BaseUrl, 以及运行时动态切换任意一个 BaseUrl, 请使用 https://github.com/JessYanCoding/RetrofitUrlManager
         //若觉得框架默认的打印格式并不能满足自己的需求, 可自行扩展自己理想的打印格式 (以下只是简单实现)
-        builder.baseurl(Api.API_GANKIO)
+        builder
                 .formatPrinter(new FormatPrinter() {
                     @Override
                     public void printJsonRequest(Request request, String bodyString) {
@@ -148,7 +147,6 @@ public final class GlobalConfiguration implements ConfigModule {
             }
         });
     }
-
 
 
 }

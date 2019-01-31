@@ -83,6 +83,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/ll_movie_directors"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -115,6 +116,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
+                        android:id="@+id/tv_movie_casts"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="主演："

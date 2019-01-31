@@ -45,15 +45,15 @@ public class AdapterShine {
 
         /*Movie*/
         maps.put(AdapterConstant.ITME_MOVIE_DEFAULT, R.layout.item_movie_default);
-//        maps.put(AdapterConstant.ITME_MOVIE_CATE_GORY, R.layout.item_movie_cate_gory);
-//        maps.put(AdapterConstant.ITME_MOVIE_PERSONAL_LIST, R.layout.item_movie_recycleview);
-//        maps.put(AdapterConstant.ITME_MOVIE_PERSONAL_DEFAULT, R.layout.item_movie_person_default);
-//        maps.put(AdapterConstant.ITME_MOVIE_IMAGE_DEFAULT, R.layout.item_movie_image_default);
-//        maps.put(AdapterConstant.ITME_MOVIE_COMMENT_REVIEW, R.layout.item_movie_comment_review);
-//        maps.put(AdapterConstant.ITME_MOVIE_COMMENT_DEFAULT, R.layout.item_movie_comment_default);
-//        maps.put(AdapterConstant.ITME_MOVIE_BEAN_CELEBIRTY, R.layout.item_movie_bean_celebirty);
-//        maps.put(AdapterConstant.ITME_MOVIE_PHOTO_DEFAULT, R.layout.item_movie_photo_default);
-//        maps.put(AdapterConstant.ITEM_MOVIE_COUNT_DEFAULT, R.layout.item_movie_count_default);
+        maps.put(AdapterConstant.ITME_MOVIE_CATE_GORY, R.layout.item_movie_cate_gory);
+        maps.put(AdapterConstant.ITME_MOVIE_PERSONAL_LIST, R.layout.item_movie_recycleview);
+        maps.put(AdapterConstant.ITME_MOVIE_PERSONAL_DEFAULT, R.layout.item_movie_person_default);
+        maps.put(AdapterConstant.ITME_MOVIE_IMAGE_DEFAULT, R.layout.item_movie_image_default);
+        maps.put(AdapterConstant.ITME_MOVIE_COMMENT_REVIEW, R.layout.item_movie_comment_review);
+        maps.put(AdapterConstant.ITME_MOVIE_COMMENT_DEFAULT, R.layout.item_movie_comment_default);
+        maps.put(AdapterConstant.ITME_MOVIE_BEAN_CELEBIRTY, R.layout.item_movie_bean_celebirty);
+        maps.put(AdapterConstant.ITME_MOVIE_PHOTO_DEFAULT, R.layout.item_movie_photo_default);
+        maps.put(AdapterConstant.ITEM_MOVIE_COUNT_DEFAULT, R.layout.item_movie_count_default);
 
 //        /*******************通用视图 END*******************/
 //        maps.put(AdapterConstant.ITEM_BIZHI_COMMON_HEADER, R.layout.item_bizhi_common_header);

@@ -1,4 +1,4 @@
-package com.mtm.cloudconsult.mvp.ui.activity;
+package com.mtm.cloudconsult.mvp.ui.activity.movie;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -23,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ImageUtils;
+import com.blankj.utilcode.util.ObjectUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -31,10 +34,12 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.mtm.cloudconsult.R;
+import com.mtm.cloudconsult.app.adapter.MovieListAdapter;
 import com.mtm.cloudconsult.app.utils.GlideUtils;
 import com.mtm.cloudconsult.app.utils.StringUtils;
 import com.mtm.cloudconsult.app.view.MyNestedScrollView;
@@ -46,11 +51,14 @@ import com.mtm.cloudconsult.mvp.model.bean.movie.MovieBean;
 import com.mtm.cloudconsult.mvp.presenter.MovieDetailPresenter;
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
+import static com.mtm.cloudconsult.app.api.CloudConstant.MOVIE_INFO;
+import static com.mtm.cloudconsult.app.api.CloudConstant.PRELOADNUMBER;
 
 /**
  * 豆瓣电影详情页面
@@ -85,12 +93,15 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
     LinearLayout llOneItem;
     @BindView(R.id.sl_base)
     MyNestedScrollView slBase;
+    @BindView(R.id.recycle)
+    RecyclerView mRecyclerView;
 
     // 这个是高斯图背景的高度
     private int imageBgHeight;
     // 滑动多少距离后标题不透明
     private int slidingDistance;
     private MovieBean movieBean;
+    private BaseQuickAdapter mAdapter;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -109,11 +120,9 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        if (getIntent() != null) {
-            movieBean = (MovieBean) getIntent().getSerializableExtra("bean");
-            //高斯模糊
-            GlideUtils.loadTransformationImage(MovieDetailActivity.this, imgItemBg, movieBean.getImages().getMedium(), 95);
-        }
+        movieBean = (MovieBean) getIntent().getSerializableExtra(MOVIE_INFO);
+        //高斯模糊
+        GlideUtils.loadTransformationImage(MovieDetailActivity.this, imgItemBg, movieBean.getImages().getMedium(), 95);
         tvOneRatingRate.setText("评分:" + movieBean.getRating().getAverage());
         tvOneRatingNumber.setText(movieBean.getCollect_count() + "人评分");
         tvOneDirectors.setText(StringUtils.formatName(movieBean.getDirectors()));
@@ -128,6 +137,124 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         tbBaseTitle.setTitle(movieBean.getTitle());//标题
         tbBaseTitle.setSubtitle(String.format("主演：%s", StringUtils.formatName(movieBean.getCasts())));//副标题
 
+        initRecycleView();
+        if(movieBean!=null){
+            assert mPresenter != null;
+            mPresenter.getMovieDetail(movieBean.getId(),true);
+        }
+    }
+    private void initRecycleView() {
+        mAdapter=getAdapter();
+        //解决滑动不流畅
+        mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(getLayoutManager());
+        mRecyclerView.setAdapter(mAdapter);
+    }
+    @Override
+    public RecyclerView.LayoutManager getLayoutManager() {
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        return manager;
+    }
+    @Override
+    public Activity getActivity() {
+        return this;
+    }
+
+
+    @Override
+    public void showLoadSirView(int status) {
+
+    }
+
+    @Override
+    public void onViewReload() {
+
+    }
+    @Override
+    public void refreshUI(List data) {
+        if (ObjectUtils.isNotEmpty(data)) {
+            mAdapter.setNewData(data);
+            mAdapter.setEnableLoadMore(true);
+            if (data.size() < PRELOADNUMBER) {
+                mAdapter.loadMoreEnd(true);
+            }
+        } else {
+            //清空数据
+            mAdapter.setNewData(new ArrayList());
+            mAdapter.setEnableLoadMore(true);
+            if (data.size() < PRELOADNUMBER) {
+                mAdapter.loadMoreEnd(true);
+            }
+        }
+        mRecyclerView.smoothScrollToPosition(0);
+        hideLoading();
+    }
+
+    @Override
+    public void updateUI(Object data) {
+
+    }
+
+    @Override
+    public void deleteUI(Object data) {
+
+    }
+
+    @Override
+    public void onError(String error) {
+        hideLoading();
+    }
+
+    @Override
+    public void loadMore(List data, boolean hasMore) {
+        if (ObjectUtils.isEmpty(data)) {
+            mAdapter.loadMoreEnd(true);
+            hideLoading();
+            return;
+        }
+        mAdapter.addData(data);
+        if (!hasMore) {
+            mAdapter.loadMoreEnd(true);
+        }
+        mAdapter.loadMoreComplete();
+    }
+
+    @Override
+    public void onDataRefresh() {
+
+    }
+
+    @Override
+    public void onDataLoadMore() {
+
+    }
+
+
+    @Override
+    public int getReHeaderView() {
+        return 0;
+    }
+
+    @Override
+    public int getReFooterView() {
+        return 0;
+    }
+
+    @Override
+    public boolean enableRefresh() {
+        return false;
+    }
+
+    @Override
+    public boolean enableMore() {
+        return false;
+    }
+
+    @Override
+    public BaseQuickAdapter getAdapter() {
+        return new MovieListAdapter(getActivity(),new ArrayList());
     }
 
     /**
@@ -283,7 +410,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
 
     @Override
     public void hideLoading() {
-
+        mAdapter.loadMoreComplete();
     }
 
     @Override
@@ -303,12 +430,6 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         finish();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     /**
      * @param context      activity
@@ -317,7 +438,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
      */
     public static void startActivity(Activity context, MovieBean positionData, ImageView imageView) {
         Intent intent = new Intent(context, MovieDetailActivity.class);
-        intent.putExtra("bean", positionData);
+        intent.putExtra(MOVIE_INFO, positionData);
         ActivityOptionsCompat options =
                 ActivityOptionsCompat.makeSceneTransitionAnimation(context,
                         imageView, ArmsUtils.getString(context, R.string.transition_movie_img));//与xml文件对应

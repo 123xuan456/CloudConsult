@@ -373,7 +373,7 @@ public class ViewBigImageActivity extends AppCompatActivity implements ViewPager
         ArrayList<String> imageList = new ArrayList<>();
         ArrayList<String> imageTitles = new ArrayList<>();
         imageList.add(imageUrl);
-        imageTitles.add(imageUrl);
+        imageTitles.add(imageTitle);
         Bundle bundle = new Bundle();
         bundle.putInt("selet", 1);
         bundle.putInt("code", 0);

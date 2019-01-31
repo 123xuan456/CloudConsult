@@ -20,9 +20,12 @@ import com.mtm.cloudconsult.app.base.BaseRecycleFragment;
 import com.mtm.cloudconsult.di.component.DaggerMovieListComponent;
 import com.mtm.cloudconsult.di.module.MovieListModule;
 import com.mtm.cloudconsult.mvp.contract.MovieListContract;
+import com.mtm.cloudconsult.mvp.model.bean.movie.MoviePhotoRequest;
 import com.mtm.cloudconsult.mvp.presenter.MovieListPresenter;
+import com.mtm.cloudconsult.mvp.ui.activity.ViewBigImageActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -31,14 +34,18 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * @create 2019/1/21
  * @Describe three 列表
  */
-public class MovieListFragment extends BaseRecycleFragment<BaseEntityBean,MovieListPresenter> implements MovieListContract.View<BaseEntityBean> {
+public class MovieListFragment extends BaseRecycleFragment<BaseEntityBean, MovieListPresenter> implements MovieListContract.View<BaseEntityBean> {
     private int type;
     private String extend;
+    private ArrayList<String> imgTitleList;
+    private ArrayList<String> imgList;
+
     public static MovieListFragment newInstance() {
         MovieListFragment fragment = new MovieListFragment();
         return fragment;
     }
-    public static MovieListFragment newInstance(int type,String extend) {
+
+    public static MovieListFragment newInstance(int type, String extend) {
         MovieListFragment fragment = new MovieListFragment();
         fragment.type = type;
         fragment.extend = extend;
@@ -59,6 +66,7 @@ public class MovieListFragment extends BaseRecycleFragment<BaseEntityBean,MovieL
     public void initData(@Nullable Bundle savedInstanceState) {
         getData(true);
     }
+
     @Override
     public void setData(@Nullable Object data) {
 
@@ -83,14 +91,29 @@ public class MovieListFragment extends BaseRecycleFragment<BaseEntityBean,MovieL
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                List<MoviePhotoRequest.PhotosBean> photosBean = adapter.getData();
+                imgList = new ArrayList<>();
+                imgTitleList = new ArrayList<>();
+                for (int i = 0; i < photosBean.size(); i++) {
+                    imgList.add(photosBean.get(i).getCover());
+                    imgTitleList.add(photosBean.get(i).getId());
+                }
+                ViewBigImageActivity.startImageList(getContext(), position, imgList, imgTitleList);
+            }
+        });
+
     }
 
-    public void refreshSearch(String query){
+    public void refreshSearch(String query) {
         this.extend = query;
-        if(isPrepared){
+        if (isPrepared) {
             onDataRefresh();
         }
     }
+
     @Override
     public void onDataRefresh() {
         getData(true);
@@ -104,7 +127,7 @@ public class MovieListFragment extends BaseRecycleFragment<BaseEntityBean,MovieL
     @Override
     public boolean enableRefresh() {
         boolean isRefresh = true;
-        switch (type){
+        switch (type) {
             case CloudConstant.MOVIE_LIST_SEARCH_QUERY:
             case CloudConstant.MOVIE_LIST_SEARCH_TAG:
                 isRefresh = false;
@@ -116,7 +139,7 @@ public class MovieListFragment extends BaseRecycleFragment<BaseEntityBean,MovieL
     @Override
     public boolean enableMore() {
         boolean isMore = true;
-        switch (type){
+        switch (type) {
             case CloudConstant.MOVIE_LIST_US_BOX:
                 isMore = false;
                 break;
@@ -126,48 +149,52 @@ public class MovieListFragment extends BaseRecycleFragment<BaseEntityBean,MovieL
 
     @Override
     public BaseQuickAdapter<BaseEntityBean, BaseViewHolder> getAdapter() {
-        return new MovieListAdapter(getActivity(),new ArrayList<>());
+        return new MovieListAdapter(getActivity(), new ArrayList<>());
     }
 
     @Override
     public RecyclerView.LayoutManager getLayoutManager() {
         int count = 1;
-        switch (type){
+        switch (type) {
             case CloudConstant.MOVIE_LIST_DEFAULT:
                 break;
             case CloudConstant.MOVIE_PHOTOS_LIST:
                 count = 3;
                 break;
         }
-        GridLayoutManager manager = new GridLayoutManager(getActivity(),count);
+        GridLayoutManager manager = new GridLayoutManager(getActivity(), count);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         return manager;
     }
 
-    public void getData(boolean pullToRefresh){
-        switch (type){
+    public void getData(boolean pullToRefresh) {
+        switch (type) {
             case CloudConstant.MOVIE_LIST_DEFAULT:
-                mPresenter.getData(extend,pullToRefresh);
+                mPresenter.getData(extend, pullToRefresh);
                 break;
             case CloudConstant.MOVIE_LIST_US_BOX:
                 mPresenter.getMovieUsBoxRequest(extend);
                 break;
             case CloudConstant.MOVIE_PHOTOS_LIST:
-                mPresenter.getMovieTypeList(extend,"photos",pullToRefresh);
+                mPresenter.getMovieTypeList(extend, "photos", pullToRefresh);
                 break;
             case CloudConstant.MOVIE_COMMENT_DEFAULT:
-                mPresenter.getMovieTypeList(extend,"comments",pullToRefresh);
+                mPresenter.getMovieTypeList(extend, "comments", pullToRefresh);
                 break;
             case CloudConstant.MOVIE_COMMENT_REVIEW:
-                mPresenter.getMovieTypeList(extend,"reviews",pullToRefresh);
+                mPresenter.getMovieTypeList(extend, "reviews", pullToRefresh);
                 break;
             case CloudConstant.MOVIE_LIST_SEARCH_QUERY:
-                mPresenter.getMovieSearchQuery(extend,pullToRefresh);
+                mPresenter.getMovieSearchQuery(extend, pullToRefresh);
                 break;
             case CloudConstant.MOVIE_LIST_SEARCH_TAG:
-                mPresenter.getMovieSearchTag(extend,pullToRefresh);
+                mPresenter.getMovieSearchTag(extend, pullToRefresh);
                 break;
         }
     }
 
+    @Override
+    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+    }
 }

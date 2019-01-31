@@ -56,12 +56,46 @@ public class GlideUtils {
                 .into(imageView);
     }
 
+    /**
+     * @param context
+     * @param imageView
+     * @param url         路径
+     * @param placeholder 默认图片
+     * @param errorPic    错误图片
+     */
+    public static void showImageView(Context context, ImageView imageView, String url, int placeholder, int errorPic) {
+        AppComponent mAppComponent = ((App) context.getApplicationContext()).getAppComponent();
+        ImageLoader mImageLoader = mAppComponent.imageLoader();
+
+        ImageConfigImpl.Builder builder = ImageConfigImpl.builder();
+        builder.url(url);
+        builder.imageView(imageView);
+        //判断网络是否为4G，4G网络不加载网络图片
+        if (NetworkUtils.isMobileData()) {
+            builder.cacheStrategy(5);
+        }
+        if (placeholder != 0) {
+            builder.placeholder(placeholder);
+        }
+        if (errorPic != 0) {
+            builder.errorPic(errorPic);
+        }
+        mImageLoader.loadImage(context, builder.build());
+    }
+
+
+    /*
+     *加载电影图片
+     */
+    public static void showImageView(Context context, ImageView imageView, String url) {
+        loadImage(context,url, imageView,  R.color.color_placeholder,R.color.color_errorPic);
+
+    }
     /*
      *加载电影图片(默认)
      */
     public static void loadMovieImage(Context context, String url, ImageView imageView) {
         loadImage(context, url, imageView, R.drawable.img_default_movie, R.drawable.img_default_movie);
-
     }
 
     /**

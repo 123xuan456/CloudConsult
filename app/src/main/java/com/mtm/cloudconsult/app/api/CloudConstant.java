@@ -5,6 +5,8 @@ package com.mtm.cloudconsult.app.api;
  * 依赖库的常量
  */
 public class CloudConstant {
+    //页请求数
+    public static  int PRELOADNUMBER = 15;
 
     // 热映缓存
     public static String ONE_HOT_MOVIE = "one_hot_movie";
@@ -47,5 +49,18 @@ public class CloudConstant {
     public static final int MOVIE_LIST_SEARCH_TAG = 1406;
     public static final int MOVIE_LIST_SEARCH_QUERY = 1407;
     public static final int MOVIE_SEARCH_TYPE = 1408;
+
+
+    /*Activity Bundel*/
+    public static final String COMMON_SHOW_FRAGMENT = "COMMON_SHOW_FRAGMENT";
+    public static final String DIYTOP_DETAIL = "DIYTOP_DETAIL";
+    public static final String DIY_USER_INFO = "DIY_USER_INFO";
+    public static final String WECHAT_TAG_TYPE = "WECHAT_TAG_TYPE";
+    public static final String MOVIE_INFO = "MOVIE_INFO";
+    public static final String MOVIE_PERSON = "MOVIE_PERSON";
+    public static final String MOVIE_SUBJECT_TYPE = "MOVIE_SUBJECT_TYPE";
+    public static final String MOVIE_SUBJECT_ID = "MOVIE_SUBJECT_ID";
+    public static final String SEARCH_TYPE = "SEARCH_TYPE";
+    public static final String ALBUM_INFO = "album_info";
 
 }

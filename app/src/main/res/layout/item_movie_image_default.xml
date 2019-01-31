@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mtm.cloudconsult.app.view.percent.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_one_item"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">>
+
+    <ImageView
+        android:id="@+id/iv_one_photo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        app:layout_heightPercent="100%h"
+        app:layout_paddingPercent="5%h"
+        app:layout_widthPercent="130%h" />
+</com.mtm.cloudconsult.app.view.percent.PercentLinearLayout>

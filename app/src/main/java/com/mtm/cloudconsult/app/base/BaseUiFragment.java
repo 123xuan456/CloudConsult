@@ -28,6 +28,7 @@ public abstract class BaseUiFragment<P extends IPresenter> extends BaseFragment<
 
     private LinearLayout mLlContent;
     private LoadService loadService;
+
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_base_ui, container, false);
@@ -46,7 +47,6 @@ public abstract class BaseUiFragment<P extends IPresenter> extends BaseFragment<
         }
         return rootView;
     }
-
     public View getLoadView() {
         return mLlContent;
     }
@@ -78,4 +78,5 @@ public abstract class BaseUiFragment<P extends IPresenter> extends BaseFragment<
             }
         }
     }
+
 }

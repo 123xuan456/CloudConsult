@@ -35,12 +35,12 @@ public class AdapterConstant {
     /*Moive*/
     public static final int ITME_MOVIE_DEFAULT = 1501;//豆瓣列表
     public static final int ITME_MOVIE_CATE_GORY = 1502;
-    public static final int ITME_MOVIE_PERSONAL_LIST = 1503;
-    public static final int ITME_MOVIE_PERSONAL_DEFAULT = 1504;
-    public static final int ITME_MOVIE_IMAGE_LIST = 1505;
-    public static final int ITME_MOVIE_IMAGE_DEFAULT = 1506;
-    public static final int ITME_MOVIE_COMMENT_REVIEW = 1507;
-    public static final int ITME_MOVIE_COMMENT_DEFAULT = 1508;
+    public static final int ITME_MOVIE_PERSONAL_LIST = 1503; //影人列表
+    public static final int ITME_MOVIE_PERSONAL_DEFAULT = 1504;//影人列表信息
+    public static final int ITME_MOVIE_IMAGE_LIST = 1505;//剧照列表
+    public static final int ITME_MOVIE_IMAGE_DEFAULT = 1506;//剧照列表信息
+    public static final int ITME_MOVIE_COMMENT_REVIEW = 1507;//影评列表信息
+    public static final int ITME_MOVIE_COMMENT_DEFAULT = 1508;//短评列表
     public static final int ITME_MOVIE_BEAN_CELEBIRTY = 1509;
     public static final int ITME_MOVIE_PHOTO_DEFAULT = 1510;
     public static final int ITEM_MOVIE_COUNT_DEFAULT = 1511;

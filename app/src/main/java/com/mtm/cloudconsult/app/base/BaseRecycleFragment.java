@@ -22,18 +22,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
+import static com.mtm.cloudconsult.app.api.CloudConstant.PRELOADNUMBER;
 
 /**
  * 列表刷新基类
  */
 public abstract class BaseRecycleFragment <T, P extends IPresenter> extends BaseUiFragment<P> implements BaseRecycleIView<T>, BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener{
-    protected  int PRELOADNUMBER = 15;
     RecyclerView mRecyclerView;
     SwipeRefreshLayout mSwipeRefreshLayout;
     private BaseQuickAdapter mAdapter;
     protected View mYeHeaderView;
     protected View mYeFooterView;
     public boolean isPrepared=false;
+    private boolean isFirstVisible = true;
+    private boolean isFirstInvisible = true;
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -79,10 +81,6 @@ public abstract class BaseRecycleFragment <T, P extends IPresenter> extends Base
     }
 
     @Override
-    public void initView(View mRootView) {
-
-    }
-    @Override
     public int getReHeaderView() {
         return 0;
     }
@@ -95,10 +93,6 @@ public abstract class BaseRecycleFragment <T, P extends IPresenter> extends Base
     @Override
     public void showLoading() {
         mSwipeRefreshLayout.setRefreshing(true);
-    }
-    @Override
-    public void startLoadMore() {
-
     }
     private synchronized void initPrepare() {
         if (isPrepared) {
@@ -114,11 +108,6 @@ public abstract class BaseRecycleFragment <T, P extends IPresenter> extends Base
         mAdapter.loadMoreComplete();
     }
 
-
-    @Override
-    public void endLoadMore() {
-
-    }
     @Override
     public void onRefresh() {
         mAdapter.setEnableLoadMore(false);
@@ -214,12 +203,6 @@ public abstract class BaseRecycleFragment <T, P extends IPresenter> extends Base
     }
 
     @Override
-    public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-
-
-
-    }
-    @Override
     public void onViewReload() {
         showLoadSirView(CloudConstant.LoadSir.LOADING);
         onDataRefresh();
@@ -230,4 +213,34 @@ public abstract class BaseRecycleFragment <T, P extends IPresenter> extends Base
         super.onDestroy();
     }
 
+    /***
+     * 监听Fragment显示隐藏
+     */
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (isFirstVisible) {
+                isFirstVisible = false;
+                initPrepare();
+            } else {
+                onUserVisible();
+            }
+        } else {
+            if (isFirstInvisible) {
+                isFirstInvisible = false;
+            } else {
+                onUserInvisible();
+            }
+        }
+    }
+    protected  void onUserVisible(){
+    }
+
+    protected void onUserInvisible(){
+
+    }
+    public void resume() {
+        setUserVisibleHint(true);
+    }
 }

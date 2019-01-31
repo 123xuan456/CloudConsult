@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mtm.cloudconsult.app.view.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_one_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:gravity="left"
+    android:orientation="vertical">>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivAvatar"
+        app:layout_heightPercent="8%w"
+        app:layout_marginLeftPercent="2%w"
+        app:layout_widthPercent="8%w"
+        android:layout_height="0dp"
+        android:layout_width="0dp" />
+
+    <com.mtm.cloudconsult.app.view.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ivAvatar"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:textColor="@color/color_Main_Body"
+            android:textStyle="bold"
+            app:layout_textSizePercent="5%w" />
+
+        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+            android:id="@+id/mr_movie_comment_rating"
+            style="@style/Widget.MaterialRatingBar.RatingBar"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@id/tvUsername"
+            app:layout_heightPercent="5%w" />
+
+        <TextView
+            android:id="@+id/tvSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvUsername"
+            android:textColor="@color/color_Hint_Word"
+            app:layout_textSizePercent="4%w" />
+
+        <TextView
+            android:id="@+id/tv_created"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvSummary"
+            android:maxLines="3"
+            android:textColor="@color/color_Hint_Word"
+            app:layout_textSizePercent="4%w" />
+    </com.mtm.cloudconsult.app.view.percent.PercentRelativeLayout>
+</com.mtm.cloudconsult.app.view.percent.PercentRelativeLayout>

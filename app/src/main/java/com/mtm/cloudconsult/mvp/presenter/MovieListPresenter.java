@@ -57,7 +57,7 @@ public class MovieListPresenter extends BaseRecyclePresenter<MovieListContract.M
     }
     public void getMovieTypeList(String subjectId,String type, boolean pullToRefresh) {
         if("photos".equals(type)){
-            setPregPage(21);
+            setPregPage(51);
         }
         if(pullToRefresh){
             page = 1;

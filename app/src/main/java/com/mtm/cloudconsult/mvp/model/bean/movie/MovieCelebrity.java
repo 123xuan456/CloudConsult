@@ -1,12 +1,15 @@
 package com.mtm.cloudconsult.mvp.model.bean.movie;
 
+import com.mtm.cloudconsult.app.api.AdapterConstant;
+import com.mtm.cloudconsult.app.base.BaseEntityBean;
+
 import java.util.List;
 
 /**
  * Created by li.xiao on 2018-1-26.
  */
 
-public class MovieCelebrity {
+public class MovieCelebrity extends BaseEntityBean{
 
     /**
      * website :
@@ -48,6 +51,10 @@ public class MovieCelebrity {
     private List<MovieImage> photos;
     private List<String> aka;
 
+    @Override
+    public int getItemType() {
+        return AdapterConstant.ITME_MOVIE_CATE_GORY;
+    }
     public String getWebsite() {
         return website;
     }

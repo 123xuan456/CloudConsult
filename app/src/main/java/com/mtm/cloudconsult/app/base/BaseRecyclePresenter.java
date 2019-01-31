@@ -42,16 +42,12 @@ public abstract class BaseRecyclePresenter<M extends IModel, V extends IView> ex
                 .doOnSubscribe(disposable -> {
                     if (pullToRefresh)
                         view.showLoading();//显示上拉刷新的进度条
-                    else
-                        view.startLoadMore();//显示下拉加载更多的进度条
                 }).subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doAfterTerminate(() -> {
                     if (pullToRefresh){
                         view.hideLoading();//隐藏上拉刷新的进度条
                     }
-                    else
-                        view.endLoadMore();//隐藏下拉加载更多的进度条
                 })
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))//使用Rxlifecycle,使Disposable和Activity一起销毁
                 .subscribe(new ErrorHandleSubscriber<List<T>>(mErrorHandler) {
