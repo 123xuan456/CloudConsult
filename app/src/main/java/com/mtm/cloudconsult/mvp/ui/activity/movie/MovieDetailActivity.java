@@ -49,12 +49,15 @@ import com.mtm.cloudconsult.di.module.MovieDetailModule;
 import com.mtm.cloudconsult.mvp.contract.MovieDetailContract;
 import com.mtm.cloudconsult.mvp.model.bean.movie.MovieBean;
 import com.mtm.cloudconsult.mvp.presenter.MovieDetailPresenter;
+import com.mtm.cloudconsult.mvp.ui.activity.ViewBigImageActivity;
 
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 import static com.mtm.cloudconsult.app.api.CloudConstant.MOVIE_INFO;
@@ -134,29 +137,34 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         initSlideShapeTheme(movieBean.getImages().getMedium(), imgItemBg);
         setToolBar();
         GlideUtils.loadMovieImage(this, movieBean.getImages().getLarge(), ivOnePhoto);
+
         tbBaseTitle.setTitle(movieBean.getTitle());//标题
         tbBaseTitle.setSubtitle(String.format("主演：%s", StringUtils.formatName(movieBean.getCasts())));//副标题
 
         initRecycleView();
-        if(movieBean!=null){
+        if (movieBean != null) {
             assert mPresenter != null;
-            mPresenter.getMovieDetail(movieBean.getId(),true);
+            mPresenter.getMovieDetail(movieBean.getId(), true);
         }
     }
+
     private void initRecycleView() {
-        mAdapter=getAdapter();
+        mAdapter = getAdapter();
         //解决滑动不流畅
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setFocusable(false);
         mRecyclerView.setLayoutManager(getLayoutManager());
         mRecyclerView.setAdapter(mAdapter);
     }
+
     @Override
     public RecyclerView.LayoutManager getLayoutManager() {
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         return manager;
     }
+
     @Override
     public Activity getActivity() {
         return this;
@@ -172,6 +180,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
     public void onViewReload() {
 
     }
+
     @Override
     public void refreshUI(List data) {
         if (ObjectUtils.isNotEmpty(data)) {
@@ -254,7 +263,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
 
     @Override
     public BaseQuickAdapter getAdapter() {
-        return new MovieListAdapter(getActivity(),new ArrayList());
+        return new MovieListAdapter(getActivity(), new ArrayList());
     }
 
     /**
@@ -445,4 +454,15 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         ActivityCompat.startActivity(context, intent, options.toBundle());
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.iv_one_photo)
+    public void onViewClicked() {
+        ViewBigImageActivity.start(this, movieBean.getImages().getLarge(),movieBean.getTitle());
+    }
 }

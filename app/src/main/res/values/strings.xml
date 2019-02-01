@@ -19,6 +19,11 @@
     <string name="actionbar_webview_collect">添加到收藏</string>
     <string name="actionbar_share">分享给朋友\(^o^)/~</string>
     <string name="picture_has_save_to">已保存至 %s</string>
-
+    <!--干货闲读-->
+    <string name="string_url_xiandu">https://gank.io/xiandu</string>
+    <!--玩安卓-->
+    <string name="string_url_wanandroid">http://www.wanandroid.com/index</string>
+    <!--每日推荐-->
+    <string name="string_url_trending">https://github.com/trending</string>
 
 </resources>

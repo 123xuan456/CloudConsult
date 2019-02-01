@@ -22,7 +22,11 @@ import com.mtm.cloudconsult.app.utils.PerfectClickListener;
 import com.mtm.cloudconsult.mvp.model.bean.AndroidBean;
 import com.mtm.cloudconsult.mvp.ui.activity.config.WebViewActivity;
 
+import org.simple.eventbus.EventBus;
+
 import java.util.List;
+
+import static com.mtm.cloudconsult.app.EventBusTags.TWO_CURRENTITEM;
 
 /**
  * 多布局Item
@@ -66,7 +70,6 @@ public class TRecommendAdapter extends MultipleItemRvAdapter<List<AndroidBean>, 
     }
 
     private class TitleHolder extends BaseItemProvider<List<AndroidBean>, BaseViewHolder> {
-        int index = 0;
         @Override
         public int viewType() {
             return TYPE_TITLE;
@@ -79,12 +82,14 @@ public class TRecommendAdapter extends MultipleItemRvAdapter<List<AndroidBean>, 
 
         @Override
         public void convert(BaseViewHolder helper, List<AndroidBean> data, int position) {
+            int index = 0;
             String title = data.get(0).getType_title();
             TextView tvTitleType = helper.getView(R.id.tv_title_type);
             View viewLine = helper.getView(R.id.view_line);
+            View llTitleMore = helper.getView(R.id.ll_title_more);
             tvTitleType.setText(title);
             if ("Android".equals(title)) {
-                index = 0;
+                index = 2;
             } else if ("福利".equals(title)) {
                 index = 1;
             } else if ("IOS".equals(title)) {
@@ -99,15 +104,15 @@ public class TRecommendAdapter extends MultipleItemRvAdapter<List<AndroidBean>, 
             } else {
                 viewLine.setVisibility(View.GONE);
             }
-        }
-        @Override
-        public void onClick(BaseViewHolder helper, List<AndroidBean> data, int position) {
+            final int finalIndex = index;
+            llTitleMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(finalIndex,TWO_CURRENTITEM);
+                }
+            });
         }
 
-        @Override
-        public boolean onLongClick(BaseViewHolder helper, List<AndroidBean> data, int position) {
-            return true;
-        }
     }
 
     private class OneHolder extends BaseItemProvider<List<AndroidBean>, BaseViewHolder> {
@@ -131,15 +136,25 @@ public class TRecommendAdapter extends MultipleItemRvAdapter<List<AndroidBean>, 
                 tvOnePhotoTitle.setVisibility(View.GONE);
                 ivOnePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 GlideUtils.loadImage(ivOnePhoto.getContext(),data.get(0).getUrl(),ivOnePhoto,R.drawable.img_two_bi_one,R.drawable.img_two_bi_one);
+                ivOnePhoto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EventBus.getDefault().post(1,TWO_CURRENTITEM);
+                    }
+                });
+
             } else {
                 tvOnePhotoTitle.setVisibility(View.VISIBLE);
                 setDes(data, 0, tvOnePhotoTitle);
                 displayRandomImg(1, 0, ivOnePhoto, data);
+                setOnClick(ivOnePhoto, data.get(0));
             }
 
         }
         @Override
         public void onClick(BaseViewHolder helper, List<AndroidBean> data, int position) {
+
+
         }
 
         @Override
@@ -243,22 +258,23 @@ public class TRecommendAdapter extends MultipleItemRvAdapter<List<AndroidBean>, 
         }
     }
 
-    private void setOnClick(final LinearLayout linearLayout, final AndroidBean bean) {
-        linearLayout.setOnClickListener(new PerfectClickListener() {
+    private void setOnClick(final View view, final AndroidBean bean) {
+        view.setOnClickListener(new PerfectClickListener() {
             @Override
             protected void onNoDoubleClick(View v) {
+
                 WebViewActivity.loadUrl(v.getContext(), bean.getUrl(), bean.getDesc());
             }
         });
 
-        linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
+        view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 String title = TextUtils.isEmpty(bean.getType()) ? bean.getDesc() : bean.getType() + "：  " + bean.getDesc();
                 DialogBuild.showCustom(v, title, "查看详情", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        WebViewActivity.loadUrl(linearLayout.getContext(), bean.getUrl(), bean.getDesc());
+                        WebViewActivity.loadUrl(view.getContext(), bean.getUrl(), bean.getDesc());
                     }
                 });
                 return false;

@@ -45,6 +45,8 @@ import com.mtm.cloudconsult.mvp.ui.fragment.ThreeFragment;
 import com.mtm.cloudconsult.mvp.ui.fragment.TwoFragment;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import org.simple.eventbus.Subscriber;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -57,10 +59,11 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static com.jess.arms.utils.ArmsUtils.killAll;
 import static com.jess.arms.utils.Preconditions.checkNotNull;
+import static com.mtm.cloudconsult.app.EventBusTags.MAIN_CURRENTITEM;
 import static com.mtm.cloudconsult.app.api.Api.API_GANKIO;
 
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View , ViewPager.OnPageChangeListener {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View, ViewPager.OnPageChangeListener {
 
 
     private static final int CODE_WRITE = 1000;
@@ -83,6 +86,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
     private boolean mIsExit;
+
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
         DaggerMainComponent //如找不到该类,请编译一下项目
@@ -137,20 +141,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     } else if (permission.shouldShowRequestPermissionRationale) {
                         // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
                         Timber.d("%s is denied. More info should be provided.", permission.name);
-                        if (permission.name.equals(WRITE_EXTERNAL_STORAGE) ) {
-                            showAlertDialog("存储权限为必要权限，请开启存储权限，已正常使用。","确定",false);
+                        if (permission.name.equals(WRITE_EXTERNAL_STORAGE)) {
+                            showAlertDialog("存储权限为必要权限，请开启存储权限，已正常使用。", "确定", false);
                         }
                     } else {
                         // 用户拒绝了该权限，并且选中『不再询问』
                         Timber.e("%s is denied.", permission.name);
-                        if (permission.name.equals(WRITE_EXTERNAL_STORAGE) ) {
-                            showAlertDialog("在系统设置-应用-文书审核-权限中开启储存权限，已正常使用。","去设置",true);
+                        if (permission.name.equals(WRITE_EXTERNAL_STORAGE)) {
+                            showAlertDialog("在系统设置-应用-文书审核-权限中开启储存权限，已正常使用。", "去设置", true);
                         }
                     }
                 });
     }
 
-    private void showAlertDialog(String content,String confirmText,boolean denied) {
+    private void showAlertDialog(String content, String confirmText, boolean denied) {
         SweetAlertDialog dialog = new SweetAlertDialog(MainActivity.this, SweetAlertDialog.WARNING_TYPE);
         dialog.setConfirmText(confirmText);
         //不支持点击返回退出
@@ -163,7 +167,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             public void onClick(SweetAlertDialog sDialog) {
                 if (!denied) {
                     requestPermissions();
-                }else {
+                } else {
                     Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                     Uri uri = Uri.fromParts("package", getPackageName(), null);
                     intent.setData(uri);
@@ -180,7 +184,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             }
         });
         dialog.showCancelButton(true);
-        if (dialog.isShowing()){
+        if (dialog.isShowing()) {
             dialog.dismiss();
         }
         dialog.show();
@@ -207,6 +211,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         //默认显示第二页
         setCurrentItem(1);
     }
+
     /**
      * 切换页面
      *
@@ -235,6 +240,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         ivTitleTwo.setSelected(isTwo);
         ivTitleThree.setSelected(isThree);
     }
+
     @Override
     public void showLoading() {
 
@@ -284,6 +290,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -294,14 +301,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return super.onOptionsItemSelected(item);
         }
     }
+
     @OnClick({R.id.ll_title_menu, R.id.iv_title_one, R.id.iv_title_two, R.id.iv_title_three})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_title_menu:
                 // 开启菜单
-                if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                     drawerLayout.closeDrawer(GravityCompat.START);
-                }else {
+                } else {
                     drawerLayout.openDrawer(GravityCompat.START);
                 }
                 break;
@@ -321,8 +329,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     setCurrentItem(2);
                 }
                 break;
-                default:
+            default:
         }
+    }
+
+    @Subscriber(tag = MAIN_CURRENTITEM)
+    public void showCurrentItem(int integer) {
+        vpContent.setCurrentItem(integer);
     }
 
     @Override
@@ -351,6 +364,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public void onPageScrollStateChanged(int state) {
 
     }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

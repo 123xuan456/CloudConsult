@@ -94,6 +94,7 @@ public class TRadioFragment extends BaseUiFragment<TRadioPresenter> implements T
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+
         getGanData(true);
     }
 

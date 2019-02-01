@@ -8,17 +8,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jess.arms.utils.LogUtils;
 import com.mtm.cloudconsult.R;
 import com.mtm.cloudconsult.app.adapter.MyFragmentPagerAdapter;
 import com.mtm.cloudconsult.mvp.ui.fragment.two.TFriendFragment;
 import com.mtm.cloudconsult.mvp.ui.fragment.two.TRadioFragment;
 import com.mtm.cloudconsult.mvp.ui.fragment.two.TRecommendFragment;
 
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static com.mtm.cloudconsult.app.EventBusTags.TWO_CURRENTITEM;
 
 /**
  * 中间页面
@@ -44,6 +50,7 @@ public class TwoFragment extends Fragment {
         vpGank.setOffscreenPageLimit(2);
         tabGank.setTabMode(TabLayout.MODE_FIXED);
         tabGank.setupWithViewPager(vpGank);
+        EventBus.getDefault().register(this);
         return view;
     }
 
@@ -57,9 +64,17 @@ public class TwoFragment extends Fragment {
         mFragments.add(new TRadioFragment());
     }
 
+
+    @Subscriber(tag = TWO_CURRENTITEM)
+    public void showCurrentItem(int integer) {
+        LogUtils.warnInfo(integer+"");
+        vpGank.setCurrentItem(integer);
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 }

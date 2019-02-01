@@ -102,9 +102,10 @@ public class OneFragment extends Fragment implements SwipeRefreshLayout.OnRefres
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         manager.setSmoothScrollbarEnabled(true);
-        recycleOneSong.setNestedScrollingEnabled(false);
         recycleOneSong.setHasFixedSize(true);
+        //解决和ScrollView 冲突
         recycleOneSong.setFocusable(false);
+        recycleOneSong.setNestedScrollingEnabled(false);
         recycleOneSong.setLayoutManager(manager);
         songAdapter = new RecycleSongAdapter(R.layout.item_fragment_one_song, new ArrayList<SongRecycleBean>());
         recycleOneSong.setAdapter(songAdapter);

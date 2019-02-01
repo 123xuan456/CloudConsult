@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jess.arms.base.BaseFragment;
@@ -20,7 +21,7 @@ import com.jess.arms.utils.ArmsUtils;
 import com.mtm.cloudconsult.R;
 import com.mtm.cloudconsult.app.adapter.TRecommendAdapter;
 import com.mtm.cloudconsult.app.utils.GlideImageLoader;
-import com.mtm.cloudconsult.app.utils.StringUtils;
+import com.mtm.cloudconsult.app.utils.PerfectClickListener;
 import com.mtm.cloudconsult.di.component.DaggerTRecommendComponent;
 import com.mtm.cloudconsult.di.module.TRecommendModule;
 import com.mtm.cloudconsult.mvp.contract.TRecommendContract;
@@ -32,12 +33,16 @@ import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.youth.banner.Banner;
 
+import org.simple.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 import static com.jess.arms.utils.Preconditions.checkNotNull;
+import static com.mtm.cloudconsult.app.EventBusTags.MAIN_CURRENTITEM;
+import static com.mtm.cloudconsult.app.utils.StringUtils.getTodayTime;
 
 /**
  * 推荐页面
@@ -47,6 +52,11 @@ public class TRecommendFragment extends BaseFragment<TRecommendPresenter> implem
     private Banner banner;
     private boolean isLoadBanner;
     private RecyclerView recyclerView;
+    private TextView tvDailyText;
+    private View ibXiandu;
+    private View ibWanAndroid;
+    private View ibMovieHot;
+    private View flEveryday;
 
     public static TRecommendFragment newInstance() {
         TRecommendFragment fragment = new TRecommendFragment();
@@ -81,21 +91,60 @@ public class TRecommendFragment extends BaseFragment<TRecommendPresenter> implem
         recyclerView.setAdapter(tRecommendAdapter);
         if (mPresenter != null) {
             mPresenter.showBannerPage(1,true);
-            String year = StringUtils.getTodayTime().get(0);
-            String month = StringUtils.getTodayTime().get(1);
-            String day = StringUtils.getTodayTime().get(2);
+            String year = getTodayTime().get(0);
+            String month = getTodayTime().get(1);
+            String day = getTodayTime().get(2);
             mPresenter.showRecyclerViewData(year,month,day);
         }
         //添加Header
          View header = LayoutInflater.from(getContext()).inflate(R.layout.header_item_everyday, recyclerView, false);
          View footer = LayoutInflater.from(getContext()).inflate(R.layout.footer_item_everyday, recyclerView, false);
+
         banner=header.findViewById(R.id.banner);
+        tvDailyText=header.findViewById(R.id.tv_daily_text);
+        ibXiandu=header.findViewById(R.id.ib_xiandu);
+        ibWanAndroid=header.findViewById(R.id.ib_wan_android);
+        ibMovieHot=header.findViewById(R.id.ib_movie_hot);
+        flEveryday=header.findViewById(R.id.fl_everyday);
+
+        initLocalSetting();
         tRecommendAdapter.addHeaderView(header);
         tRecommendAdapter.addFooterView(footer);
         tRecommendAdapter.openLoadAnimation();
         return view;
     }
 
+    private void initLocalSetting() {
+        // 显示日期,去掉第一位的"0"
+        String day = getTodayTime().get(2);
+        tvDailyText.setText(day.indexOf("0") == 0 ? day.replace("0", "") : day);
+        ibXiandu.setOnClickListener(listener);
+        ibWanAndroid.setOnClickListener(listener);
+        ibMovieHot.setOnClickListener(listener);
+        flEveryday.setOnClickListener(listener);
+
+    }
+    private PerfectClickListener listener = new PerfectClickListener() {
+        @Override
+        protected void onNoDoubleClick(View v) {
+            switch (v.getId()) {
+                case R.id.ib_xiandu:
+                    WebViewActivity.loadUrl(v.getContext(), getString(R.string.string_url_xiandu), "闲读");
+                    break;
+                case R.id.ib_wan_android:
+                    WebViewActivity.loadUrl(v.getContext(), getString(R.string.string_url_wanandroid), "玩Android");
+                    break;
+                case R.id.ib_movie_hot:
+                    EventBus.getDefault().post(2,MAIN_CURRENTITEM);
+                    break;
+                case R.id.fl_everyday:
+                    WebViewActivity.loadUrl(v.getContext(), getString(R.string.string_url_trending), "Trending");
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
     }
@@ -107,8 +156,6 @@ public class TRecommendFragment extends BaseFragment<TRecommendPresenter> implem
 
     @Override
     public void showLoading() {
-
-
 
     }
 
@@ -181,4 +228,5 @@ public class TRecommendFragment extends BaseFragment<TRecommendPresenter> implem
     public void showListView(ArrayList<List<AndroidBean>> lists) {
         tRecommendAdapter.setNewData(lists);
     }
+
 }

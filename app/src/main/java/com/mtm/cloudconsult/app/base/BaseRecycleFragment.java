@@ -74,6 +74,7 @@ public abstract class BaseRecycleFragment <T, P extends IPresenter> extends Base
         }
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getActivity(),  R.anim.layout_animation_fall_down);
         mRecyclerView.setLayoutAnimation(animation);
+        mRecyclerView.setFocusable(false);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(getLayoutManager());
         mRecyclerView.setAdapter(mAdapter);
