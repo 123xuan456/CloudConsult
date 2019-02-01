@@ -63,4 +63,15 @@ public class CloudConstant {
     public static final String SEARCH_TYPE = "SEARCH_TYPE";
     public static final String ALBUM_INFO = "album_info";
 
+    /*Fragment current*/
+    public static final int  CURRENT_TWO_TRECOMMENDFRAGMENT = 1; // 福利
+    public static final int  CURRENT_TWO_TRADIOFRAGMENT = 2; //电台
+
+    public static final int  CURRENT_MAIN_TWOFRAGMENT = 1; //推荐
+    public static final int  CURRENT_MAIN_THREEFRAGMENT = 2; //豆瓣
+
+
+
+
+
 }

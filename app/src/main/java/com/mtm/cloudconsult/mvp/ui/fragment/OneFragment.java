@@ -19,6 +19,8 @@ import com.mtm.cloudconsult.R;
 import com.mtm.cloudconsult.app.adapter.RecycleSongAdapter;
 import com.mtm.cloudconsult.mvp.model.bean.SongRecycleBean;
 
+import org.simple.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.mtm.cloudconsult.app.EventBusTags.MAIN_CURRENTITEM;
+import static com.mtm.cloudconsult.app.api.CloudConstant.CURRENT_MAIN_THREEFRAGMENT;
+import static com.mtm.cloudconsult.app.api.CloudConstant.CURRENT_MAIN_TWOFRAGMENT;
 
 /**
  * 第一个页面
@@ -131,18 +137,28 @@ public class OneFragment extends Fragment implements SwipeRefreshLayout.OnRefres
     @OnClick({R.id.ll_one_music, R.id.ll_one_diy, R.id.ll_one_gank, R.id.ll_one_wx, R.id.ll_one_game, R.id.ll_one_dy, R.id.ll_one_bz, R.id.rl_one_song})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            //玩安卓
             case R.id.ll_one_music:
+
                 break;
+                //diy
             case R.id.ll_one_diy:
                 break;
+                //干货
             case R.id.ll_one_gank:
+                EventBus.getDefault().post(CURRENT_MAIN_TWOFRAGMENT,MAIN_CURRENTITEM);
                 break;
+                //微信
             case R.id.ll_one_wx:
                 break;
+                //游民星空
             case R.id.ll_one_game:
                 break;
+                //影视
             case R.id.ll_one_dy:
+                EventBus.getDefault().post(CURRENT_MAIN_THREEFRAGMENT,MAIN_CURRENTITEM);
                 break;
+                //壁纸
             case R.id.ll_one_bz:
                 break;
             //创建的歌单

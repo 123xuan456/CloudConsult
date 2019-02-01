@@ -27,6 +27,7 @@ import org.simple.eventbus.EventBus;
 import java.util.List;
 
 import static com.mtm.cloudconsult.app.EventBusTags.TWO_CURRENTITEM;
+import static com.mtm.cloudconsult.app.api.CloudConstant.CURRENT_TWO_TRECOMMENDFRAGMENT;
 
 /**
  * 多布局Item
@@ -139,7 +140,7 @@ public class TRecommendAdapter extends MultipleItemRvAdapter<List<AndroidBean>, 
                 ivOnePhoto.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        EventBus.getDefault().post(1,TWO_CURRENTITEM);
+                        EventBus.getDefault().post(CURRENT_TWO_TRECOMMENDFRAGMENT,TWO_CURRENTITEM);
                     }
                 });
 

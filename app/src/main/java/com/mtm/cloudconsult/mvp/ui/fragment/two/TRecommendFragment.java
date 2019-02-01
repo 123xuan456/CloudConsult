@@ -42,6 +42,7 @@ import java.util.Objects;
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 import static com.mtm.cloudconsult.app.EventBusTags.MAIN_CURRENTITEM;
+import static com.mtm.cloudconsult.app.api.CloudConstant.CURRENT_MAIN_THREEFRAGMENT;
 import static com.mtm.cloudconsult.app.utils.StringUtils.getTodayTime;
 
 /**
@@ -135,7 +136,7 @@ public class TRecommendFragment extends BaseFragment<TRecommendPresenter> implem
                     WebViewActivity.loadUrl(v.getContext(), getString(R.string.string_url_wanandroid), "玩Android");
                     break;
                 case R.id.ib_movie_hot:
-                    EventBus.getDefault().post(2,MAIN_CURRENTITEM);
+                    EventBus.getDefault().post(CURRENT_MAIN_THREEFRAGMENT,MAIN_CURRENTITEM);
                     break;
                 case R.id.fl_everyday:
                     WebViewActivity.loadUrl(v.getContext(), getString(R.string.string_url_trending), "Trending");
