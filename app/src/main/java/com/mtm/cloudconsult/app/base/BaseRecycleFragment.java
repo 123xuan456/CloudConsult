@@ -173,6 +173,7 @@ public abstract class BaseRecycleFragment <T, P extends IPresenter> extends Base
         if (!hasMore) {
             mAdapter.loadMoreEnd(true);
         }
+        mAdapter.notifyDataSetChanged();
         mAdapter.loadMoreComplete();
         mSwipeRefreshLayout.setEnabled(true);
     }

@@ -37,6 +37,7 @@ import java.util.Map;
 
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
+import static com.mtm.cloudconsult.app.api.AdapterConstant.ITME_MOVIE_COMMENT_DEFAULT;
 import static com.mtm.cloudconsult.app.api.CloudConstant.MOVIE_COMMENT_DEFAULT;
 import static com.mtm.cloudconsult.app.api.CloudConstant.MOVIE_COMMENT_REVIEW;
 import static com.mtm.cloudconsult.app.api.CloudConstant.MOVIE_INFO;
@@ -69,7 +70,7 @@ public class MovieListAdapter extends BaseMultiItemQuickAdapter<BaseEntityBean, 
     @Override
     protected void convert(BaseViewHolder viewHolder, BaseEntityBean data) {
         try {
-            //添加滑动动画效果
+//            //添加滑动动画效果
             ViewHelper.setScaleX(viewHolder.itemView, 0.8f);
             ViewHelper.setScaleY(viewHolder.itemView, 0.8f);
             ViewPropertyAnimator.animate(viewHolder.itemView).scaleX(1).setDuration(350).setInterpolator(new OvershootInterpolator()).start();
@@ -171,7 +172,7 @@ public class MovieListAdapter extends BaseMultiItemQuickAdapter<BaseEntityBean, 
                     }
                     break;
                 //短评
-                case AdapterConstant.ITME_MOVIE_COMMENT_DEFAULT:
+                case ITME_MOVIE_COMMENT_DEFAULT:
                     if (data != null && data instanceof MovieComment) {
                         MovieComment item = (MovieComment) data;
                         //用户头像
@@ -182,6 +183,12 @@ public class MovieListAdapter extends BaseMultiItemQuickAdapter<BaseEntityBean, 
                         viewHolder.setText(R.id.tvUsername, item.getAuthor().getName())
                                 .setText(R.id.tvSummary, item.getContent())
                                 .setText(R.id.tv_created, item.getCreated_at());
+                        viewHolder.getView(R.id.ll_one_item).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                openMovieFragmentActivity(activity, MOVIE_COMMENT_DEFAULT, item.getSubject_id());
+                            }
+                        });
                         viewHolder.getView(R.id.ivAvatar).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -232,7 +239,7 @@ public class MovieListAdapter extends BaseMultiItemQuickAdapter<BaseEntityBean, 
                                         openMovieFragmentActivity(activity, MOVIE_PHOTOS_LIST, image.getSubjectId());
                                     } else if (item.getObject() instanceof MovieComment) {
                                         MovieComment comment = (MovieComment) item.getObject();
-                                        if (comment.getItemType() == AdapterConstant.ITME_MOVIE_COMMENT_DEFAULT) {
+                                        if (comment.getItemType() == ITME_MOVIE_COMMENT_DEFAULT) {
                                             openMovieFragmentActivity(activity, MOVIE_COMMENT_DEFAULT, comment.getSubject_id());
                                         } else {
                                             openMovieFragmentActivity(activity, MOVIE_COMMENT_REVIEW, comment.getSubject_id());
