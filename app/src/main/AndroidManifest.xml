@@ -23,11 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".mvp.ui.activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <!-- arms配置 -->
@@ -55,7 +51,9 @@
             android:name=".mvp.ui.activity.config.WebViewActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true" />
-        <activity android:name=".mvp.ui.activity.Main2Activity">
+        <activity android:name=".mvp.ui.activity.Main2Activity"
+
+            >
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -66,15 +64,20 @@
         </activity>
         <activity
             android:name=".mvp.ui.activity.SplashActivity"
-            android:theme="@style/AppThemeSplash" />
+            android:theme="@style/AppThemeSplash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".mvp.ui.activity.ViewBigImageActivity"
             android:theme="@style/ViewBigPicTheme" />
         <activity
             android:name=".mvp.ui.activity.movie.MovieDetailActivity"
             android:theme="@style/MyScrollPage" />
-        <activity android:name=".mvp.ui.activity.movie.MovieFragmentActivity"
-            />
+        <activity android:name=".mvp.ui.activity.movie.MovieFragmentActivity" />
         <activity android:name=".mvp.ui.activity.movie.MovieCelebrityActivity" />
     </application>
 

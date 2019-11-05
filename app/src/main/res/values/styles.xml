@@ -10,17 +10,16 @@
         <item name="colorAccent">@color/colorTheme</item>
         <item name="android:windowSoftInputMode">stateHidden</item>
         <item name="android:windowNoTitle">true</item>
-        <!--<item name="android:windowAnimationStyle">@style/default_animation</item>-->
-
-        <!-- 默认Activity跳转动画 -->
-        <!--<style name="default_animation" mce_bogus="1" parent="@android:style/Animation.Activity">-->
-        <!--<item name="android:activityOpenEnterAnimation">@anim/activity_up_in</item>-->
-        <!--<item name="android:activityOpenExitAnimation">@anim/activity_up_out</item>-->
-        <!--<item name="android:activityCloseEnterAnimation">@anim/activity_down_in</item>-->
-        <!--<item name="android:activityCloseExitAnimation">@anim/activity_down_out</item>-->
-        <!--</style>-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/default_animation</item>
     </style>
-
+    <!-- 默认Activity跳转动画 -->
+    <style name="default_animation" mce_bogus="1" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/activity_up_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/activity_up_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/activity_down_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/activity_down_out</item>
+    </style>
     <!-- 避免启动白色背景 -->
     <style name="AppThemeSplash" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>

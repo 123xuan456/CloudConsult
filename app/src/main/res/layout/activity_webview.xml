@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.jingbin.cloudreader.view.webview.WebViewActivity">
+    >
 
     <!--播放全屏视频时用-->
     <FrameLayout

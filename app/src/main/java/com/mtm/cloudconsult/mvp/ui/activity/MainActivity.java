@@ -3,6 +3,7 @@ package com.mtm.cloudconsult.mvp.ui.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,8 +25,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.ImageUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -57,6 +61,7 @@ import timber.log.Timber;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static com.blankj.utilcode.util.ImageUtils.getBitmap;
 import static com.jess.arms.utils.ArmsUtils.killAll;
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 import static com.mtm.cloudconsult.app.EventBusTags.MAIN_CURRENTITEM;
@@ -102,6 +107,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         return R.layout.activity_main; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
 //        ArmsUtils.snackbarText("打包成功！！");
@@ -121,6 +127,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 .commit();
         requestPermissions();
         initContentFragment();
+        View headView = navView.getHeaderView(0);
+        LinearLayout ll_header_bg = headView.findViewById(R.id.ll_header_bg);
+        ll_header_bg.setBackground(new BitmapDrawable(ImageUtils.renderScriptBlur(getBitmap(R.drawable.ic_circle_head), 25)));
     }
 
     /**
@@ -148,7 +157,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                         // 用户拒绝了该权限，并且选中『不再询问』
                         Timber.e("%s is denied.", permission.name);
                         if (permission.name.equals(WRITE_EXTERNAL_STORAGE)) {
-                            showAlertDialog("在系统设置-应用-文书审核-权限中开启储存权限，已正常使用。", "去设置", true);
+                            showAlertDialog("在系统设置-应用-权限中开启储存权限，已正常使用。", "去设置", true);
                         }
                     }
                 });

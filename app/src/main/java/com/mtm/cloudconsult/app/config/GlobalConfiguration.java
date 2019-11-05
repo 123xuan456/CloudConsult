@@ -100,7 +100,7 @@ public final class GlobalConfiguration implements ConfigModule {
                 })
                 .okhttpConfiguration((context1, okhttpBuilder) -> {//这里可以自己自定义配置 Okhttp 的参数
 //                    okhttpBuilder.sslSocketFactory(sslContext.getSocketFactory()); //支持 Https, 详情请百度
-                    okhttpBuilder.writeTimeout(10, TimeUnit.SECONDS);
+                    okhttpBuilder.writeTimeout(10, TimeUnit.MINUTES);
                     //信任所有服务器地址
                     okhttpBuilder.hostnameVerifier(new HostnameVerifier() {
                         @SuppressLint("BadHostnameVerifier")
