@@ -10,16 +10,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <com.mtm.cloudconsult.app.view.RoundImageView
+        <ImageView
             android:id="@+id/iv_song"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:src="@drawable/ic_one_gd"
             android:background="@drawable/shape_bg_transparent"
-            app:round_radius="@dimen/dp_10"
-            android:src="@drawable/ic_one_pan1" />
+            />
 
         <LinearLayout
             android:layout_width="0dp"

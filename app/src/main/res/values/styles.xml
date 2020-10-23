@@ -1,5 +1,16 @@
-<resources>
-
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <attr name="windowBackground" format="reference" />
+    <attr name="accentColor" format="reference" />
+    <attr name="cardColor" format="reference" />
+    <attr name="iconColor" format="reference" />
+    <attr name="progressBackgroundColor" format="reference" />
+    <attr name="progressDrawable" format="reference" />
+    <attr name="progressDrawableWithBackground" format="reference" />
+    <attr name="textColorPrimary" format="reference" />
+    <!--<attr name="textColor" format="reference" />-->
+    <attr name="ripple_color" format="reference" />
+    <!--分割颜色-->
+    <attr name="deliverColor" format="reference" />
     <!-- Base application theme. -->
     <style name="AppTheme" parent="AppThemeRed" />
     <!-- 网易红为主色调 -->
@@ -12,6 +23,26 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@style/default_animation</item>
+        <!--正常状态下字体颜色和icon颜色-->
+        <item name="textColorPrimary">@color/color_Main_Body</item>
+        <item name="android:textColor">@color/color_Main_Body</item>
+        <item name="subtitleTextColor">@color/half_black</item>
+        <item name="android:actionMenuTextColor">@color/black</item>
+
+        <item name="android:windowBackground">@color/background</item>
+        <item name="windowBackground">@color/background</item>
+        <item name="accentColor">@color/black</item>
+        <item name="iconColor">@color/black</item>
+        <item name="cardColor">@android:color/white</item>
+        <item name="progressBackgroundColor">@color/white</item>
+        <item name="progressDrawable">@drawable/progress_drawable</item>
+        <item name="progressDrawableWithBackground">@drawable/progress_drawable_withbackground
+        </item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+
+<!--        <item name="android:popupMenuStyle">@style/PopupMenuDayStyle</item>-->
+<!--        <item name="android:tabWidgetStyle">@style/CustomTabLayout.Light</item>-->
     </style>
     <!-- 默认Activity跳转动画 -->
     <style name="default_animation" mce_bogus="1" parent="@android:style/Animation.Activity">
@@ -122,6 +153,11 @@
         <item name="bs_numColumns">5</item>
         <item name="bs_listStyle">@style/BottomSheet.List</item>
     </style>
-
+    <style name="navMenuStyle">
+        <item name="android:layout_marginTop">@dimen/dp_8</item>
+        <item name="android:layout_marginBottom">@dimen/dp_8</item>
+        <item name="android:layout_marginStart" >@dimen/dp_16</item>
+        <item name="android:layout_marginEnd" >@dimen/dp_16</item>
+    </style>
 
 </resources>

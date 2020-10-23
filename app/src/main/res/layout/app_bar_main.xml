@@ -6,11 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    tools:context="com.mtm.cloudconsult.mvp.ui.activity.MainActivity">
 
         <!--状态栏-->
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -79,6 +78,7 @@
             android:id="@+id/vp_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:descendantFocusability="blocksDescendants" />
+            android:descendantFocusability="blocksDescendants"
+            />
 
     </LinearLayout>

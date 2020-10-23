@@ -71,10 +71,10 @@ public class MovieListAdapter extends BaseMultiItemQuickAdapter<BaseEntityBean, 
     protected void convert(BaseViewHolder viewHolder, BaseEntityBean data) {
         try {
 //            //添加滑动动画效果
-            ViewHelper.setScaleX(viewHolder.itemView, 0.8f);
-            ViewHelper.setScaleY(viewHolder.itemView, 0.8f);
-            ViewPropertyAnimator.animate(viewHolder.itemView).scaleX(1).setDuration(350).setInterpolator(new OvershootInterpolator()).start();
-            ViewPropertyAnimator.animate(viewHolder.itemView).scaleY(1).setDuration(350).setInterpolator(new OvershootInterpolator()).start();
+//            ViewHelper.setScaleX(viewHolder.itemView, 0.8f);
+//            ViewHelper.setScaleY(viewHolder.itemView, 0.8f);
+//            ViewPropertyAnimator.animate(viewHolder.itemView).scaleX(1).setDuration(350).setInterpolator(new OvershootInterpolator()).start();
+//            ViewPropertyAnimator.animate(viewHolder.itemView).scaleY(1).setDuration(350).setInterpolator(new OvershootInterpolator()).start();
             switch (viewHolder.getItemViewType()) {
                 //电影列表
                 case AdapterConstant.ITME_MOVIE_DEFAULT:

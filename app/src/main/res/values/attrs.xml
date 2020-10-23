@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="RoundImageView">
-        <attr name="shape_mode" format="enum">
-            <enum name="round_rect" value="1" />
-            <enum name="circle" value="2" />
-        </attr>
-        <attr name="round_radius" format="dimension" />
-    </declare-styleable>
 
     <declare-styleable name="PercentLayout_Layout">
         <attr name="layout_widthPercent" format="string"/>

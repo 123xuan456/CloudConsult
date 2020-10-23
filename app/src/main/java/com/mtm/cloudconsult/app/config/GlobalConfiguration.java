@@ -114,6 +114,7 @@ public final class GlobalConfiguration implements ConfigModule {
                     //让 Retrofit 同时支持多个 BaseUrl 以及动态改变 BaseUrl, 详细使用方法请查看 https://github.com/JessYanCoding/RetrofitUrlManager
                     RetrofitUrlManager.getInstance().with(okhttpBuilder);
                 });
+        
     }
 
     @Override

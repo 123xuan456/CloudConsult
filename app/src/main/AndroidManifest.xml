@@ -22,15 +22,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".mvp.ui.activity.AboutActivity"></activity>
         <activity android:name=".mvp.ui.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        </activity>
-
-        <!-- arms配置 -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- arms配置 -->
         <meta-data
             android:name="com.mtm.cloudconsult.app.config.GlobalConfiguration"
-            android:value="ConfigModule" />
-        <!-- bugly 更新配置 -->
+            android:value="ConfigModule" /> <!-- bugly 更新配置 -->
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
@@ -44,16 +46,12 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
-        </provider>
-        <!-- bugly 更新配置 end -->
-
+        </provider> <!-- bugly 更新配置 end -->
         <activity
             android:name=".mvp.ui.activity.config.WebViewActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true" />
-        <activity android:name=".mvp.ui.activity.Main2Activity"
-
-            >
+        <activity android:name=".mvp.ui.activity.Main2Activity">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -65,11 +63,13 @@
         <activity
             android:name=".mvp.ui.activity.SplashActivity"
             android:theme="@style/AppThemeSplash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".mvp.ui.activity.ViewBigImageActivity"

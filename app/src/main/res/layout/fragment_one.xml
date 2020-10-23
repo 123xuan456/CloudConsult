@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
+    android:background="@color/background"
     android:orientation="vertical"
     tools:context=".mvp.ui.fragment.OneFragment">
 
@@ -30,10 +30,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
                     android:layout_marginTop="-50dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
                     android:background="@drawable/shape_bg_ban"
                     android:elevation="4dp"
                     android:orientation="vertical"
@@ -68,10 +68,10 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:background="@drawable/shape_bg_red"
-                            android:paddingBottom="2dp"
                             android:paddingLeft="8dp"
-                            android:paddingRight="8dp"
                             android:paddingTop="2dp"
+                            android:paddingRight="8dp"
+                            android:paddingBottom="2dp"
                             android:text="开通会员"
                             android:textColor="@color/colorPrimary"
                             android:textSize="12sp" />
@@ -321,40 +321,51 @@
                     android:layout_marginLeft="50dp"
                     android:background="@color/colorLine" />
 
-                <RelativeLayout
-                    android:id="@+id/rl_one_song"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/theme_color_common_section"
-                    android:orientation="vertical">
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/shape_bg_ban"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
 
-                    <ImageView
-                        android:id="@+id/expand_img"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_right" />
+                    <RelativeLayout
+                        android:id="@+id/rl_one_song"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/expand_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toRightOf="@+id/expand_img"
-                        android:gravity="center"
-                        android:text="@string/string_one_song"
-                        android:textSize="12sp" />
-                </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/expand_img"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/ic_right" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycle_one_song"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="5dp" />
+                        <TextView
+                            android:id="@+id/expand_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@+id/expand_img"
+                            android:gravity="center"
+                            android:text="@string/string_one_song"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycle_one_song"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp" />
+                </LinearLayout>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>

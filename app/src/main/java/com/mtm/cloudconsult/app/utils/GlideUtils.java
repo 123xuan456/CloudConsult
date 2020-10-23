@@ -91,6 +91,10 @@ public class GlideUtils {
         loadImage(context,url, imageView,  R.color.color_placeholder,R.color.color_errorPic);
 
     }
+    public static void showImageView(Context context, ImageView imageView, int res) {
+        Glide.with(context).load(res).into(imageView);
+
+    }
     /*
      *加载电影图片(默认)
      */
@@ -204,6 +208,22 @@ public class GlideUtils {
                 .placeholder(R.drawable.shape_bg_loading);
 
         Glide.with(context).load(url).apply(options).into(imageView);
+    }
+    /**
+     * 加载圆角图片-指定任意部分圆角（图片上、下、左、右四个角度任意定义）
+     *
+     * @param context
+     * @param resourceId
+     * @param imageView
+     */
+    public static void loadCustRoundCircleImage(Context context, int resourceId, ImageView imageView) {
+
+        RequestOptions options = new RequestOptions()
+                .error(R.drawable.shape_bg_loading)
+                .transforms(new CenterCrop(), new RoundedCorners(10))
+                .placeholder(R.drawable.shape_bg_loading);
+
+        Glide.with(context).load(resourceId).apply(options).into(imageView);
     }
 
 

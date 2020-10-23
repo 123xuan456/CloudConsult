@@ -3,6 +3,7 @@ package com.mtm.cloudconsult.mvp.ui.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -68,7 +69,7 @@ import static com.mtm.cloudconsult.app.EventBusTags.MAIN_CURRENTITEM;
 import static com.mtm.cloudconsult.app.api.Api.API_GANKIO;
 
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View, ViewPager.OnPageChangeListener {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View, ViewPager.OnPageChangeListener, NavigationView.OnNavigationItemSelectedListener  {
 
 
     private static final int CODE_WRITE = 1000;
@@ -110,7 +111,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-//        ArmsUtils.snackbarText("打包成功！！");
+
         RetrofitUrlManager.getInstance().putDomain(Api.GANK_DOMAIN_NAME, API_GANKIO);
         RetrofitUrlManager.getInstance().putDomain(Api.DOUBAN_DOMAIN_NAME, Api.API_DOUBAN);
         RetrofitUrlManager.getInstance().putDomain(Api.TING_DOMAIN_NAME, Api.API_TING);
@@ -120,7 +121,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         RetrofitUrlManager.getInstance().putDomain(Api.BIZHI_DOMAIN_NAME, Api.API_BIZHI);
         RetrofitUrlManager.getInstance().putDomain(Api.WECHAT_DOMAIN_NAME, Api.API_WECHAT);
         RetrofitUrlManager.getInstance().putDomain(Api.GAMER_DOMAIN_NAME, Api.API_GAMER);
-
         LoadSir.beginBuilder()
                 .addCallback(new ErrorCallback())
                 .addCallback(new LoadingCallback())
@@ -128,8 +128,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         requestPermissions();
         initContentFragment();
         View headView = navView.getHeaderView(0);
+        navView.setNavigationItemSelectedListener(this);
         LinearLayout ll_header_bg = headView.findViewById(R.id.ll_header_bg);
-        ll_header_bg.setBackground(new BitmapDrawable(ImageUtils.renderScriptBlur(getBitmap(R.drawable.ic_circle_head), 25)));
+        Bitmap bitmap=getBitmap(R.drawable.ic_circle_head);
+        Bitmap smallBitmap = Bitmap.createBitmap(getBitmap(R.drawable.ic_circle_head),bitmap.getHeight()/2,bitmap.getWidth()/2,bitmap.getHeight()/4,bitmap.getWidth()/4);
+        ll_header_bg.setBackground(new BitmapDrawable(ImageUtils.renderScriptBlur(smallBitmap, 25)));
     }
 
     /**
@@ -421,5 +424,56 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+//            case R.id.nav_login_status:
+//                if (mIsLogin) {
+//                    UIUtilsKt.showInfoDialog(this, getString(R.string.app_name), getString(R.string.logout_prompt), () -> {
+//                        logout();
+//                        return null;
+//                    });
+//                } else {
+//                    mTargetClass = LoginActivity.class;
+//                }
+//                drawerLayout.closeDrawers();
+//                break;
+//            case R.id.nav_menu_playQueue:
+//                NavigationHelper.INSTANCE.navigatePlayQueue(this);
+//                break;
+//            case R.id.nav_bind_wy:
+//                checkBindNeteaseStatus(false);
+//                break;
+//            case R.id.nav_menu_import:
+//                mTargetClass = ImportPlaylistActivity.class;
+//                break;
+//            case R.id.nav_menu_setting:
+//                mTargetClass = SettingsActivity.class;
+//                break;
+//            case R.id.nav_menu_online_num:
+//                mTargetClass = ChatActivity.class;
+//                break;
+//            case R.id.nav_menu_count_down:
+//                mTargetClass = SleepTimerActivity.class;
+//                break;
+//            case R.id.nav_menu_feedback:
+//                Tools.INSTANCE.feeback(this);
+//                break;
+            case R.id.nav_menu_about:
+                ArmsUtils.startActivity(AboutActivity.class);
+                break;
+//            case R.id.nav_menu_equalizer:
+//                NavigationHelper.INSTANCE.navigateToSoundEffect(this);
+//                break;
+//            case R.id.nav_menu_exit:
+//                mTargetClass = null;
+//                finish();
+//                break;
+        }
+        drawerLayout.closeDrawers();
+        return false;
     }
 }

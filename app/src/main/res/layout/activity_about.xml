@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_blue_light"
+    tools:context=".mvp.ui.activity.AboutActivity">
+
+    <ImageView
+        android:id="@+id/iv_blur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_blue_light"
+        android:scaleType="centerCrop" />
+
+    <com.daimajia.swipe.SwipeLayout
+        android:id="@+id/sl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:drag_edge="bottom"
+        app:show_mode="pull_out">
+
+        <RelativeLayout
+            android:id="@+id/rl_reward"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginBottom="60dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/piv_qq_qrcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/margin_def"
+                    android:layout_marginBottom="@dimen/margin_def"
+                    android:layout_weight="1"
+                    android:background="@drawable/giao1"
+                    android:scaleType="fitCenter"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="有些人喜欢城市，感觉城市这个好那个好，但是我还是喜欢农村，喜欢田园生活。城市里七八公里都找不到一个厕所，在农村到处都是厕所，纯天然的。"
+                    android:textColor="@color/text_deed_bg"
+                    android:textSize="@dimen/text_notes" />
+
+                <ImageView
+                    android:id="@+id/piv_wx_qrcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/margin_def"
+                    android:layout_marginBottom="@dimen/margin_def"
+                    android:layout_weight="1"
+                    android:background="@drawable/giao2"
+                    android:scaleType="fitCenter"
+                    />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_icon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/giao_icon"
+                android:layout_marginTop="100dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/civ_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="Giao"
+                android:textColor="@color/text_deed_bg"
+                android:textSize="@dimen/text_title" />
+
+            <TextView
+                android:id="@+id/tv_sign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:text="一giao我里giao"
+                android:textColor="@color/text_deed_bg"
+                android:textSize="@dimen/text_auxiliary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_sign"
+                android:layout_marginTop="60dp"
+                android:clipChildren="false"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_github"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_github"
+                        android:tint="@color/text_invert" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="Github"
+                        android:textColor="@color/text_deed_bg"
+                        android:textSize="@dimen/text_content" />
+
+                    <TextView
+                        android:id="@+id/tv_github"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:textColor="@color/text_deed_bg"
+                        android:textSize="@dimen/text_notes"
+                        android:text="https://github.com/" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_jianshu"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_jianshu"
+                        android:tint="@color/text_invert" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="简书"
+                        android:textColor="@color/text_invert"
+                        android:textSize="@dimen/text_content" />
+
+                    <TextView
+                        android:id="@+id/tv_jianshu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:textColor="@color/text_invert_alpha"
+                        android:textSize="@dimen/text_notes"
+                        android:text="https://www.jianshu.com/" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_qq"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_qq"
+                        android:tint="@color/text_invert" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="QQ"
+                        android:textColor="@color/text_invert"
+                        android:textSize="@dimen/text_content" />
+
+                    <TextView
+                        android:id="@+id/tv_qq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:textColor="@color/text_invert_alpha"
+                        android:textSize="@dimen/text_notes"
+                        android:text="1044072796" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tv_to_reward"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="我太难了，老铁，最近压力很大！"
+                android:textColor="@color/text_invert_alpha"
+                android:textSize="@dimen/text_auxiliary" />
+
+            <TextView
+                android:id="@+id/tv_to_reward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/iv_to_reward"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:text="上滑"
+                android:textColor="@color/text_invert_alpha"
+                android:textSize="@dimen/text_auxiliary" />
+
+            <ImageView
+                android:id="@+id/iv_to_reward"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:alpha="0.6"
+                android:rotation="90"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_back"
+                android:tint="@color/text_invert" />
+
+        </RelativeLayout>
+
+
+    </com.daimajia.swipe.SwipeLayout>
+
+
+</RelativeLayout>
