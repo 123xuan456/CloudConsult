@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-
+apply plugin: 'kotlin-android-extensions'
 //调试环境下注释掉
 //bugly热部署
 //apply from: 'tinker-support.gradle'

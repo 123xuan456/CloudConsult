@@ -22,13 +22,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mvp.ui.activity.AboutActivity"></activity>
+        <activity android:name=".mvp.ui.activity.AboutActivity" />
         <activity android:name=".mvp.ui.activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity> <!-- arms配置 -->
         <meta-data
             android:name="com.mtm.cloudconsult.app.config.GlobalConfiguration"
@@ -51,25 +51,17 @@
             android:name=".mvp.ui.activity.config.WebViewActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true" />
-        <activity android:name=".mvp.ui.activity.Main2Activity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+        <activity android:name=".mvp.ui.activity.Main2Activity" />
         <activity
             android:name=".mvp.ui.activity.SplashActivity"
-            android:theme="@style/AppThemeSplash">
+            android:theme="@style/AppThemeSplash"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".mvp.ui.activity.ViewBigImageActivity"
