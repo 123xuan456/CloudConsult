@@ -15,9 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jess.arms.utils.ArmsUtils;
 import com.mtm.cloudconsult.R;
 import com.mtm.cloudconsult.app.adapter.RecycleSongAdapter;
 import com.mtm.cloudconsult.mvp.model.bean.SongRecycleBean;
+import com.mtm.cloudconsult.mvp.ui.activity.wan.WanMainActivity;
 
 import org.simple.eventbus.EventBus;
 
@@ -139,7 +141,7 @@ public class OneFragment extends Fragment implements SwipeRefreshLayout.OnRefres
         switch (view.getId()) {
             //玩安卓
             case R.id.ll_one_music:
-
+                ArmsUtils.startActivity(WanMainActivity.class);
                 break;
                 //diy
             case R.id.ll_one_diy:

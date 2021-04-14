@@ -22,13 +22,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".mvp.ui.activity.wan.WanMainActivity"
+            android:label="@string/title_activity_wan_main"></activity>
         <activity android:name=".mvp.ui.activity.AboutActivity" />
         <activity android:name=".mvp.ui.activity.MainActivity">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity> <!-- arms配置 -->
         <meta-data
             android:name="com.mtm.cloudconsult.app.config.GlobalConfiguration"
@@ -54,14 +57,14 @@
         <activity android:name=".mvp.ui.activity.Main2Activity" />
         <activity
             android:name=".mvp.ui.activity.SplashActivity"
-            android:theme="@style/AppThemeSplash"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:theme="@style/AppThemeSplash">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".mvp.ui.activity.ViewBigImageActivity"

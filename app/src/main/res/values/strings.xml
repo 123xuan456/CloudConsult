@@ -534,6 +534,10 @@
     <string name="clear_history_playlist_tips">是否清空播放历史？</string>
     <string name="choose_singer">选择歌手</string>
     <string name="youtube_loading">加载YouTube数据中(VPN前提)</string>
+    <string name="title_activity_wan_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 
 </resources>
